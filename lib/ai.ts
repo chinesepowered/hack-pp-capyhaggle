@@ -69,14 +69,20 @@ function client(): OpenAI {
   return clientMemo;
 }
 
+// Built from code points so this source file itself contains no em dash.
+const EM_DASHES = new RegExp(`\\s*[${String.fromCharCode(0x2014)}${String.fromCharCode(0x2015)}]\\s*`, "g");
+const EN_DASH = new RegExp(String.fromCharCode(0x2013), "g");
+const CURLY_SINGLE = new RegExp(`[${String.fromCharCode(0x2018)}${String.fromCharCode(0x2019)}]`, "g");
+const CURLY_DOUBLE = new RegExp(`[${String.fromCharCode(0x201c)}${String.fromCharCode(0x201d)}]`, "g");
+
 /** Makes model text safe for the UI: this product never shows em dashes, and bubbles are plain text. */
 export function cleanText(text: string | null | undefined): string {
   if (!text) return "";
   return text
-    .replace(/\s*[—―]\s*/g, ", ")
-    .replace(/–/g, "-")
-    .replace(/[‘’]/g, "'")
-    .replace(/[“”]/g, '"')
+    .replace(EM_DASHES, ", ")
+    .replace(EN_DASH, "-")
+    .replace(CURLY_SINGLE, "'")
+    .replace(CURLY_DOUBLE, '"')
     .replace(/\*\*(.+?)\*\*/g, "$1")
     .replace(/[ \t]+\n/g, "\n")
     .trim();
