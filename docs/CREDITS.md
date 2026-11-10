@@ -27,7 +27,7 @@ and the product name are reserved, see `TRADEMARKS.md`.
 ## Voices
 
 The video narration and the mascots' voice lines in `public/audio/` were generated with ElevenLabs
-(model `eleven_multilingual_v2`) using its premade voices: Brian (narrator), Callum (Barley) and Jessica (Biscuit).
+(model `eleven_multilingual_v2`) using its premade voices: Jessica (narrator), Callum (Barley) and Lily (Biscuit).
 The running app plays the pre-rendered files and never calls ElevenLabs. The video has no music.
 
 ## Third-party skills in this repository

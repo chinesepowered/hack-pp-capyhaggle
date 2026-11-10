@@ -21,6 +21,11 @@ const CARDS = path.join(ROOT, "demo", "cards");
 const FPS = 30;
 const LEAD = 0.35;
 const TAIL = 0.55;
+/** Pause between the narrator and a mascot line, and between two mascot lines. */
+const VOICE_GAP = 0.3;
+/** Peak levels after gain: the narrator a little above the mascots, both safely under full scale. */
+const NARRATOR_PEAK_DB = -2.5;
+const MASCOT_PEAK_DB = -5;
 const PAPER = "0xfbf5ea";
 /**
  * Playwright records a page at its CSS size (1440x810 here) in the top left corner of the
@@ -46,6 +51,36 @@ async function ffmpeg(args: string[]): Promise<void> {
 async function duration(file: string): Promise<number> {
   const { stdout } = await run("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", file]);
   return parseFloat(stdout.trim());
+}
+
+/** Loudest sample and average level of an audio file (or of its last `tail` seconds), in dB. */
+async function levels(file: string, tail?: number): Promise<{ peak: number; mean: number }> {
+  const args = ["-hide_banner", ...(tail ? ["-sseof", `-${tail}`] : []), "-i", file, "-vn", "-af", "volumedetect", "-f", "null", "-"];
+  const { stderr } = await run("ffmpeg", args, { maxBuffer: 1 << 26 });
+  const num = (name: string) => parseFloat(stderr.match(new RegExp(`${name}: (-?[0-9.]+|-inf) dB`))?.[1] ?? "-inf");
+  return { peak: num("max_volume"), mean: num("mean_volume") };
+}
+
+/** Gain in dB that brings a line's loudest sample to `targetPeak`, so no line can clip in the mix. */
+async function gainFor(file: string, targetPeak: number): Promise<number> {
+  const { peak } = await levels(file);
+  if (!Number.isFinite(peak)) return 0;
+  return Math.max(-9, Math.min(9, targetPeak - peak));
+}
+
+export interface SpokenLine {
+  who: string;
+  file: string;
+  /** Seconds from the start of the scene. */
+  start: number;
+  end: number;
+}
+
+interface ComposedScene {
+  id: string;
+  file: string;
+  seconds: number;
+  lines: SpokenLine[];
 }
 
 const at = (marks: Marks, source: Source, [mark, offset = 0]: Point): number => {
@@ -139,11 +174,20 @@ function sceneTime(laid: Laid[], marks: Marks, source: Source, point: Point): nu
   return best.start + Math.min(best.len, Math.max(0, t - best.from));
 }
 
-async function composeScene(scene: Scene, marks: Marks): Promise<{ file: string; seconds: number }> {
+async function composeScene(scene: Scene, marks: Marks): Promise<ComposedScene> {
   const dir = path.join(WORK, scene.id);
   await fs.mkdir(dir, { recursive: true });
   const narration = path.join(RAW, "narration", `${scene.id}.mp3`);
-  const target = (await duration(narration)) + LEAD + TAIL;
+
+  // The audio timeline comes first, because the footage is fitted to it. Lines never overlap:
+  // the narrator speaks, then any mascot lines play one after another, then the scene ends.
+  const lines: SpokenLine[] = [{ who: "narrator", file: narration, start: LEAD, end: LEAD + (await duration(narration)) }];
+  for (const v of scene.voices ?? []) {
+    const file = path.join(ROOT, "public", "audio", `${v.file}.mp3`);
+    const start = lines[lines.length - 1].end + VOICE_GAP;
+    lines.push({ who: v.file.split("-")[0], file, start, end: start + (await duration(file)) });
+  }
+  const target = lines[lines.length - 1].end + TAIL;
 
   // 1. Footage: cut the parts (or take the card) and join them.
   const laid: Laid[] = [];
@@ -192,17 +236,14 @@ async function composeScene(scene: Scene, marks: Marks): Promise<{ file: string;
     index++;
   }
 
-  // 3. Audio: the narration, plus any pre-rendered mascot lines near the end of the scene.
-  inputs.push("-i", narration);
+  // 3. Audio: every line at its place on the timeline, each with a gain that keeps its peak under full scale.
   const audioLabels: string[] = [];
-  filters.push(`[${index}:a]adelay=${Math.round(LEAD * 1000)}:all=1,volume=1.5,aresample=44100[a0]`);
-  audioLabels.push("[a0]");
-  index++;
-  for (const [i, v] of (scene.voices ?? []).entries()) {
-    inputs.push("-i", path.join(ROOT, "public", "audio", `${v.file}.mp3`));
-    const when = Math.max(0, target - v.beforeEnd);
-    filters.push(`[${index}:a]adelay=${Math.round(when * 1000)}:all=1,volume=0.75,aresample=44100[m${i}]`);
-    audioLabels.push(`[m${i}]`);
+  for (const [i, line] of lines.entries()) {
+    inputs.push("-i", line.file);
+    const gain = await gainFor(line.file, line.who === "narrator" ? NARRATOR_PEAK_DB : MASCOT_PEAK_DB);
+    // Widen the mono line to stereo at unity gain first, so the peak target is what lands in the mix.
+    filters.push(`[${index}:a]aresample=44100,pan=stereo|c0=c0|c1=c0,volume=${gain.toFixed(2)}dB,adelay=${Math.round(line.start * 1000)}:all=1[a${i}]`);
+    audioLabels.push(`[a${i}]`);
     index++;
   }
   filters.push(`${audioLabels.join("")}amix=inputs=${audioLabels.length}:normalize=0:duration=longest,apad[aout]`);
@@ -232,7 +273,48 @@ async function composeScene(scene: Scene, marks: Marks): Promise<{ file: string;
     out,
   ]);
   console.log(`${scene.id}: footage ${rawLen.toFixed(1)}s at ${speed.toFixed(2)}x, scene ${target.toFixed(1)}s`);
-  return { file: out, seconds: target };
+  return { id: scene.id, file: out, seconds: target, lines };
+}
+
+/**
+ * Checks that no spoken line is cut off, talked over, or distorted:
+ *  - on the planned timeline, lines do not overlap and each ends before its scene does,
+ *  - each source file ends in quiet (the speech was not truncated when it was generated),
+ *  - in the finished video, every scene boundary falls in silence,
+ *  - the loudest sample of the finished video is under full scale.
+ */
+async function verifyAudio(scenes: ComposedScene[], video: string): Promise<string[]> {
+  const problems: string[] = [];
+  const boundaries: number[] = [];
+  let offset = 0;
+  console.log("\nAudio timeline (seconds into the video):");
+  for (const scene of scenes) {
+    for (const [i, line] of scene.lines.entries()) {
+      const next = scene.lines[i + 1];
+      if (next && next.start < line.end + 0.1) problems.push(`${scene.id}: ${line.who} and ${next.who} overlap`);
+      if (line.end > scene.seconds - 0.25) problems.push(`${scene.id}: ${line.who} runs into the end of the scene`);
+      const whole = await levels(line.file);
+      const tail = await levels(line.file, 0.06);
+      // Speech that was cut mid-word ends about as loud as it was. A finished line trails off.
+      if (Number.isFinite(tail.mean) && tail.mean > whole.mean - 6) problems.push(`${scene.id}: ${line.who} audio file ends abruptly (tail ${tail.mean} dB, average ${whole.mean} dB)`);
+      console.log(`  ${(offset + line.start).toFixed(2).padStart(7)} to ${(offset + line.end).toFixed(2).padStart(7)}  ${line.who.padEnd(8)} ${scene.id}  (file tail ${tail.mean} dB, average ${whole.mean} dB)`);
+    }
+    offset += scene.seconds;
+    boundaries.push(offset);
+  }
+  const { stderr } = await run("ffmpeg", ["-hide_banner", "-i", video, "-vn", "-af", "silencedetect=noise=-40dB:d=0.12", "-f", "null", "-"], { maxBuffer: 1 << 26 });
+  const starts = [...stderr.matchAll(/silence_start: (-?[0-9.]+)/g)].map((m) => parseFloat(m[1]));
+  const ends = [...stderr.matchAll(/silence_end: (-?[0-9.]+)/g)].map((m) => parseFloat(m[1]));
+  const total = await duration(video);
+  const silent = (t: number) => starts.some((start, i) => t >= start - 0.02 && t <= (ends[i] ?? total) + 0.02);
+  for (const [i, b] of boundaries.slice(0, -1).entries()) {
+    if (!silent(b - 0.06) || !silent(Math.min(total, b + 0.06))) problems.push(`sound is still playing at the cut after ${scenes[i].id} (${b.toFixed(2)}s)`);
+  }
+  if (!silent(total - 0.08)) problems.push("sound is still playing at the very end of the video");
+  const final = await levels(video);
+  console.log(`Loudest sample ${final.peak} dB, average ${final.mean} dB. Cuts between scenes checked for silence: ${boundaries.length - 1}.`);
+  if (final.peak > -1) problems.push(`the mix peaks at ${final.peak} dB, too close to full scale`);
+  return problems;
 }
 
 async function main() {
@@ -243,15 +325,9 @@ async function main() {
   if (!process.argv.includes("--skip-cards")) await recordCards(SCENES);
   await renderCaptions(SCENES);
 
-  const done: { file: string; seconds: number }[] = [];
-  for (const scene of SCENES) {
-    const out = path.join(WORK, `${scene.id}.mp4`);
-    if (only.length && !only.includes(scene.id) && existsSync(out)) {
-      done.push({ file: out, seconds: await duration(out) });
-      continue;
-    }
-    done.push(await composeScene(scene, stored));
-  }
+  if (only.length) console.log("Note: every scene is composed again so the audio check covers the whole video.");
+  const done: ComposedScene[] = [];
+  for (const scene of SCENES) done.push(await composeScene(scene, stored));
 
   const list = path.join(WORK, "scenes.txt");
   await fs.writeFile(list, done.map((d) => `file '${d.file}'`).join("\n"));
@@ -260,8 +336,18 @@ async function main() {
   const total = await duration(out);
   const size = (await fs.stat(out)).size / (1024 * 1024);
   console.log(`\ndemo/video.mp4: ${Math.floor(total / 60)}:${String(Math.round(total % 60)).padStart(2, "0")} (${total.toFixed(1)}s), ${size.toFixed(1)} MB`);
-  if (total >= 180) console.warn("WARNING: the video is 3 minutes or longer.");
-  if (size >= 50) console.warn("WARNING: the video is 50 MB or larger.");
+  const problems = await verifyAudio(done, out);
+  if (total >= 180) problems.push("the video is 3 minutes or longer");
+  if (size >= 50) problems.push("the video is 50 MB or larger");
+  await fs.writeFile(
+    path.join(WORK, "timeline.json"),
+    JSON.stringify({ seconds: total, scenes: done.map((d) => ({ id: d.id, seconds: d.seconds, lines: d.lines.map((l) => ({ who: l.who, start: l.start, end: l.end })) })) }, null, 2),
+  );
+  if (problems.length) {
+    console.error(`\nPROBLEMS:\n${problems.map((p) => `  - ${p}`).join("\n")}`);
+    process.exit(1);
+  }
+  console.log("Audio check passed: no line overlaps another, none is cut off, and the mix does not clip.");
 }
 
 main().catch((err) => {

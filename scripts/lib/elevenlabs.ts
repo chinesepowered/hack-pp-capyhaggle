@@ -7,13 +7,15 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 export const VOICES = {
-  /** Narrator for the demo video (Brian). */
-  narrator: "nPczCjzI2devNBz1zQrb",
-  /** Barley: Callum, a husky character voice. */
+  /** Narrator for the demo video: Jessica, a young female voice. */
+  narrator: "cgSgspJ2msm6clMCkdW9",
+  /** Barley: Callum, a husky male character voice. */
   barley: "N2lVS1w4EtoT3dr4eOWO",
-  /** Biscuit: Jessica, playful and warm. */
-  biscuit: "cgSgspJ2msm6clMCkdW9",
+  /** Biscuit: Lily, a warm British voice. Chosen to sound clearly different from the narrator. */
+  biscuit: "pFZP5JQG7iQjIQuC4Bku",
 } as const;
+
+export const VOICE_NAMES: Record<keyof typeof VOICES, string> = { narrator: "Jessica", barley: "Callum", biscuit: "Lily" };
 
 const USAGE_FILE = path.join(process.cwd(), "demo", "elevenlabs-usage.json");
 

@@ -27,8 +27,8 @@ export interface Scene {
   card?: { file: string; seconds: number };
   parts?: Part[];
   captions?: Caption[];
-  /** Pre-rendered mascot lines mixed in near the end of the scene (seconds before the end). */
-  voices?: { file: string; beforeEnd: number }[];
+  /** Pre-rendered mascot lines (public/audio). They play in order after the narrator has finished, never over her. */
+  voices?: { file: string }[];
 }
 
 export const SCENES: Scene[] = [
@@ -67,10 +67,7 @@ export const SCENES: Scene[] = [
       "Now they haggle. Every offer is structured, and a referee in code checks it against the mandate and the listing. An agent can't overbid, can't reveal a limit, and can't invent facts about the bike. Nobody types a word. Deal, at eighty-two dollars.",
     parts: [{ source: "main", from: ["haggle_start"], to: ["haggle_end"] }],
     captions: [{ text: "Live  two agents on Qwen/Qwen3.8-27B  deterministic referee in code", from: ["main", "haggle_start", 1], to: ["main", "haggle_end", -4.5] }],
-    voices: [
-      { file: "barley-deal", beforeEnd: 3.3 },
-      { file: "biscuit-deal", beforeEnd: 1.5 },
-    ],
+    voices: [{ file: "barley-deal" }, { file: "biscuit-deal" }],
   },
   {
     id: "06-hold",
@@ -100,7 +97,7 @@ export const SCENES: Scene[] = [
       { text: "PayPal Payouts  POST /v1/payments/payouts  seller paid", from: ["main", "captured", 1.5], to: ["main", "hood_open"] },
       { text: "Under the hood  method, path, status, PayPal-Debug-Id, feature", from: ["main", "hood_open"], to: ["main", "hood_end"] },
     ],
-    voices: [{ file: "biscuit-paid", beforeEnd: 9.5 }],
+    voices: [{ file: "biscuit-paid" }],
   },
   {
     id: "08-safety",

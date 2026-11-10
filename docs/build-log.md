@@ -93,6 +93,20 @@ session on Tuesday 2026-11-10.
 - **A force push was blocked in the cloud sandbox**, so one early commit still contains a literal em dash inside a
   regular expression. The current tree has none.
 
+## Demo video audio
+
+- **Narrator changed to a young female voice (Jessica).** That voice had been Biscuit's, so Biscuit's five lines were
+  re-rendered in a different premade voice (Lily) to keep the mascots clearly distinct from the narrator. Barley's
+  lines were not touched. The earlier Biscuit files are in the git history.
+- **The first cut talked over itself.** The mascot lines had been placed by counting back from the end of a scene,
+  which put them on top of the narrator's last sentence and cut the final 0.1 seconds of one line. Nobody had listened
+  to it. The composer now builds an audio timeline first (narrator, then each mascot line, then the cut) and fits the
+  footage to it.
+- **Checking audio without ears.** `scripts/video/compose.ts` now fails the build if two lines overlap, if a line runs
+  into a cut, if a source file ends abruptly, if sound is still playing at a scene boundary, or if the mix peaks near
+  full scale. Each line is also given a gain from its own measured peak, after widening mono to stereo at unity gain
+  (the default upmix quietly costs 3 dB).
+
 ## Things we would do differently with more time
 
 - Receive real webhook deliveries on a public URL and show them arriving live.

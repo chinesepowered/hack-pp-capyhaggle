@@ -1,21 +1,38 @@
 Capy vs Capy: demo video narration
 
-Buying something used nearby should be easy. Instead it's: is this still available? A week of haggling. A no-show. And someone asking for a deposit first.
+Narrator: ElevenLabs voice Jessica (cgSgspJ2msm6clMCkdW9), model eleven_multilingual_v2.
+Mascot lines are the pre-rendered files in public/audio: Barley is Callum (N2lVS1w4EtoT3dr4eOWO), Biscuit is Lily (pFZP5JQG7iQjIQuC4Bku).
+In the video each mascot line plays after the narrator has finished the scene. No music.
 
-Capy vs Capy is for people buying and selling used bikes, furniture and baby gear locally. Each side gets a capybara. They haggle for you, and PayPal holds the money until the handoff.
+[01-cold-open]
+Narrator: Buying something used nearby should be easy. Instead it's: is this still available? A week of haggling. A no-show. And someone asking for a deposit first.
 
-Theo is selling his kid's bike. He picks two photos, and a vision model writes the listing: the rust on the chain, the chipped fender, the wheel size flagged as an estimate, and a price range. Then he sets a private floor that only his capybara, Biscuit, will see.
+[02-what]
+Narrator: Capy vs Capy is for people buying and selling used bikes, furniture and baby gear locally. Each side gets a capybara. They haggle for you, and PayPal holds the money until the handoff.
 
-Maya wants a kid's bike for under ninety dollars. She says it in plain words, and gives her capybara, Barley, a signed mandate: this bike only, never above her ceiling.
+[03-list]
+Narrator: Theo is selling his kid's bike. He picks two photos, and a vision model writes the listing: the rust on the chain, the chipped fender, the wheel size flagged as an estimate, and a price range. Then he sets a private floor that only his capybara, Biscuit, will see.
 
-Now they haggle. Every offer is structured, and a referee in code checks it against the mandate and the listing. An agent can't overbid, can't reveal a limit, and can't invent facts about the bike. Nobody types a word. Deal, at eighty-two dollars.
+[04-want]
+Narrator: Maya wants a kid's bike for under ninety dollars. She says it in plain words, and gives her capybara, Barley, a signed mandate: this bike only, never above her ceiling.
 
-Both tap Accept. Barley calls his one payment tool, and a guard in code only lets the exact agreed amount through. That creates a PayPal order with intent authorize. Maya approves in PayPal's own window, opened by the version six JavaScript SDK, and the money is held, not sent. Biscuit doesn't trust screenshots. She checks the order herself, with PayPal's Agent Toolkit.
+[05-haggle]
+Narrator: Now they haggle. Every offer is structured, and a referee in code checks it against the mandate and the listing. An agent can't overbid, can't reveal a limit, and can't invent facts about the bike. Nobody types a word. Deal, at eighty-two dollars.
+Barley: Deal. Nose bump.
+Biscuit: Lovely doing business with you!
 
-At pickup, Maya shows a signed, single-use QR code. Theo scans it. That scan captures the authorization, and Payouts sends Theo his money at once, minus a small fee shown up front. Every PayPal call is listed under the hood, with its debug ID.
+[06-hold]
+Narrator: Both tap Accept. Barley calls his one payment tool, and a guard in code only lets the exact agreed amount through. That creates a PayPal order with intent authorize. Maya approves in PayPal's own window, opened by the version six JavaScript SDK, and the money is held, not sent. Biscuit doesn't trust screenshots. She checks the order herself, with PayPal's Agent Toolkit.
 
-And if someone asks for a deposit by gift card, the capybaras refuse and flag the scam pattern. If the buyer never shows up, the authorization is voided and the money goes back.
+[07-handoff]
+Narrator: At pickup, Maya shows a signed, single-use QR code. Theo scans it. That scan captures the authorization, and Payouts sends Theo his money at once, minus a small fee shown up front. Every PayPal call is listed under the hood, with its debug ID.
+Biscuit: Scanned and paid. Enjoy!
 
-We built the PayPal layer plan first, with APIMatic's Context Plugin and PayPal's server SDK. One honest limitation: this is a sandbox demo where the marketplace account holds and settles the money. A real launch needs seller onboarding and identity checks.
+[08-safety]
+Narrator: And if someone asks for a deposit by gift card, the capybaras refuse and flag the scam pattern. If the buyer never shows up, the authorization is voided and the money goes back.
 
-Capy vs Capy. Two capybaras haggle. PayPal holds the money.
+[09-built]
+Narrator: We built the PayPal layer plan first, with APIMatic's Context Plugin and PayPal's server SDK. One honest limitation: this is a sandbox demo where the marketplace account holds and settles the money. A real launch needs seller onboarding and identity checks.
+
+[10-end]
+Narrator: Capy vs Capy. Two capybaras haggle. PayPal holds the money.

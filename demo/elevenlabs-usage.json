@@ -1,5 +1,5 @@
 {
-  "totalCharacters": 4590,
+  "totalCharacters": 6888,
   "budget": 15000,
   "requests": [
     {
@@ -178,6 +178,96 @@
     },
     {
       "at": "2026-11-10T16:36:15.591Z",
+      "voice": "narrator",
+      "characters": 59,
+      "file": "demo/raw/narration/10-end.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:15.473Z",
+      "voice": "biscuit",
+      "characters": 28,
+      "file": "public/audio/biscuit-start.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:15.833Z",
+      "voice": "biscuit",
+      "characters": 31,
+      "file": "public/audio/biscuit-deal.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:16.299Z",
+      "voice": "biscuit",
+      "characters": 48,
+      "file": "public/audio/biscuit-held.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:16.638Z",
+      "voice": "biscuit",
+      "characters": 24,
+      "file": "public/audio/biscuit-paid.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:17.035Z",
+      "voice": "biscuit",
+      "characters": 42,
+      "file": "public/audio/biscuit-scam.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:18.448Z",
+      "voice": "narrator",
+      "characters": 154,
+      "file": "demo/raw/narration/01-cold-open.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:19.282Z",
+      "voice": "narrator",
+      "characters": 184,
+      "file": "demo/raw/narration/02-what.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:20.192Z",
+      "voice": "narrator",
+      "characters": 264,
+      "file": "demo/raw/narration/03-list.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:21.066Z",
+      "voice": "narrator",
+      "characters": 168,
+      "file": "demo/raw/narration/04-want.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:21.940Z",
+      "voice": "narrator",
+      "characters": 247,
+      "file": "demo/raw/narration/05-haggle.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:23.747Z",
+      "voice": "narrator",
+      "characters": 372,
+      "file": "demo/raw/narration/06-hold.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:24.889Z",
+      "voice": "narrator",
+      "characters": 243,
+      "file": "demo/raw/narration/07-handoff.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:25.661Z",
+      "voice": "narrator",
+      "characters": 177,
+      "file": "demo/raw/narration/08-safety.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:26.839Z",
+      "voice": "narrator",
+      "characters": 257,
+      "file": "demo/raw/narration/09-built.mp3"
+    },
+    {
+      "at": "2026-11-10T18:32:27.347Z",
       "voice": "narrator",
       "characters": 59,
       "file": "demo/raw/narration/10-end.mp3"

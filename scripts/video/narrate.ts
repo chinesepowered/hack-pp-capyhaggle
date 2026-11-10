@@ -8,9 +8,10 @@
 import { createHash } from "node:crypto";
 import { existsSync, promises as fs } from "node:fs";
 import path from "node:path";
-import { readUsage, speak } from "../lib/elevenlabs";
+import { VOICE_LINES, type VoiceLine } from "../../lib/voice-lines";
+import { readUsage, speak, VOICE_NAMES, VOICES } from "../lib/elevenlabs";
 import { loadEnv } from "../lib/env";
-import { NARRATION_TEXT, SCENES } from "./scenes";
+import { SCENES } from "./scenes";
 
 loadEnv();
 
@@ -25,7 +26,8 @@ async function main() {
     // first run
   }
   for (const scene of SCENES) {
-    const hash = createHash("sha256").update(scene.narration).digest("hex").slice(0, 16);
+    // The voice is part of the hash, so changing the narrator re-speaks every scene exactly once.
+    const hash = createHash("sha256").update(`${VOICES.narrator}\n${scene.narration}`).digest("hex").slice(0, 16);
     const outFile = path.join(dir, `${scene.id}.mp3`);
     if (existsSync(outFile) && hashes[scene.id] === hash) {
       console.log(`skip ${scene.id}`);
@@ -36,7 +38,24 @@ async function main() {
     await fs.writeFile(hashFile, JSON.stringify(hashes, null, 2));
     console.log(`spoke ${scene.id} (${scene.narration.length} characters)`);
   }
-  await fs.writeFile(path.join(process.cwd(), "demo", "narration.txt"), `Capy vs Capy: demo video narration\n\n${NARRATION_TEXT}\n`, "utf8");
+  const script = [
+    "Capy vs Capy: demo video narration",
+    "",
+    `Narrator: ElevenLabs voice ${VOICE_NAMES.narrator} (${VOICES.narrator}), model eleven_multilingual_v2.`,
+    `Mascot lines are the pre-rendered files in public/audio: Barley is ${VOICE_NAMES.barley} (${VOICES.barley}), Biscuit is ${VOICE_NAMES.biscuit} (${VOICES.biscuit}).`,
+    "In the video each mascot line plays after the narrator has finished the scene. No music.",
+    "",
+    ...SCENES.flatMap((scene) => [
+      `[${scene.id}]`,
+      `Narrator: ${scene.narration}`,
+      ...(scene.voices ?? []).map((v) => {
+        const line = VOICE_LINES[v.file as VoiceLine];
+        return `${line.agent === "barley" ? "Barley" : "Biscuit"}: ${line.text}`;
+      }),
+      "",
+    ]),
+  ].join("\n");
+  await fs.writeFile(path.join(process.cwd(), "demo", "narration.txt"), script, "utf8");
   const usage = await readUsage();
   console.log(`ElevenLabs characters used so far: ${usage.totalCharacters} of ${usage.budget}`);
 }

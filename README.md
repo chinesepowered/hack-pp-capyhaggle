@@ -6,7 +6,7 @@ agent negotiate for you, and PayPal holds the buyer's money until the seller sca
 An entry for the PayPal AI Hackathon. PayPal **sandbox only**: no real money moves, and Maya, Theo and their listings
 are fictional.
 
-- Demo video: [`demo/video.mp4`](demo/video.mp4) (2:25), narration in [`demo/narration.txt`](demo/narration.txt)
+- Demo video: [`demo/video.mp4`](demo/video.mp4) (2:33), narration in [`demo/narration.txt`](demo/narration.txt)
 - Devpost text: [`docs/devpost.md`](docs/devpost.md)
 - Build log (surprises and workarounds): [`docs/build-log.md`](docs/build-log.md)
 

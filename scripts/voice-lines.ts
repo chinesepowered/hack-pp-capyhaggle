@@ -2,7 +2,7 @@
  * Pre-renders the mascots' voice lines into public/audio with ElevenLabs.
  * Lines that already exist are skipped, so re-running costs nothing.
  *
- *   pnpm tsx scripts/voice-lines.ts [--force]
+ *   pnpm tsx scripts/voice-lines.ts [--force] [--agent barley|biscuit]
  */
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -14,9 +14,12 @@ loadEnv();
 
 async function main() {
   const force = process.argv.includes("--force");
+  // --agent biscuit re-renders only that mascot's lines (used when its voice changes).
+  const agentFlag = process.argv.indexOf("--agent");
+  const onlyAgent = agentFlag > 0 ? process.argv[agentFlag + 1] : undefined;
   for (const [name, line] of Object.entries(VOICE_LINES)) {
     const outFile = path.join(process.cwd(), "public", "audio", `${name}.mp3`);
-    if (existsSync(outFile) && !force) {
+    if (existsSync(outFile) && !force && line.agent !== onlyAgent) {
       console.log(`skip ${name} (exists)`);
       continue;
     }
