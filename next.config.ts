@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     "/api/**": ["./fixtures/**/*"],
   },
   images: { unoptimized: true },
+  // No generated AGENTS.md in this repo.
+  agentRules: false,
+  devIndicators: false,
 };
 
 export default nextConfig;

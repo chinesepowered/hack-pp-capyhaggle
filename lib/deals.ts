@@ -127,7 +127,15 @@ export async function stepDeal(deal: Deal, listing: Listing): Promise<void> {
     }
     pushTurn(deal, { actor, kind: "accept", message: result.move.message, offer: outcome.offer, ai: result.ai, trail: result.trail });
     const feeCents = feeFor(outcome.offer.priceCents);
-    deal.agreed = { offer: outcome.offer, atTurn: deal.turns.length, feeCents, sellerNetCents: sellerNetFor(outcome.offer.priceCents) };
+    const win = listing.pickupWindows.find((w) => w.id === outcome.offer.pickupWindowId);
+    deal.agreed = {
+      offer: outcome.offer,
+      pickupLabel: win?.label ?? outcome.offer.pickupWindowId,
+      pickupEndsAt: win?.endsAt ?? new Date(Date.now() + 7 * 24 * 3600_000).toISOString(),
+      atTurn: deal.turns.length,
+      feeCents,
+      sellerNetCents: sellerNetFor(outcome.offer.priceCents),
+    };
     deal.status = "agreed";
     deal.standing = undefined;
     pushTurn(deal, {
@@ -207,7 +215,7 @@ export async function acceptDeal(deal: Deal, listing: Listing, role: Role): Prom
   if (deal.status !== "agreed" || !deal.agreed) throw new RuleError("NOTHING_TO_ACCEPT", "There is no agreed deal to accept.");
   if (!deal.accepts[role]) {
     deal.accepts[role] = now();
-    pushTurn(deal, { actor: role === "buyer" ? "maya" : "theo", kind: "human", message: `Accepted: ${formatUsd(deal.agreed.offer.priceCents)}.` });
+    pushTurn(deal, { actor: "system", kind: "system", message: `${role === "buyer" ? deal.buyerName : deal.sellerName} tapped Accept on ${formatUsd(deal.agreed.offer.priceCents)}.` });
   }
   if (deal.accepts.buyer && deal.accepts.seller) await placeHold(deal, listing);
 }
@@ -234,7 +242,7 @@ export async function placeHold(deal: Deal, listing: Listing): Promise<void> {
         requestId: requestId(deal, "order"),
         amountCents: decision.value.amountCents,
         title: listing.title,
-        description: `${listing.title}, local pickup ${windowLabel(listing, deal.agreed!.offer.pickupWindowId)}`,
+        description: `${listing.title}, local pickup ${deal.agreed!.pickupLabel}`,
         returnUrl: `${env.appUrl}/deal/${deal.id}?paypal=approved`,
         cancelUrl: `${env.appUrl}/deal/${deal.id}?paypal=cancelled`,
       });
@@ -414,9 +422,8 @@ export async function payoutSeller(deal: Deal, listing: Listing): Promise<void> 
 
 /* --------------------------------------------------------- void / refund */
 
-export function pickupWindowEnded(deal: Deal, listing: Listing, at = new Date()): boolean {
-  const win = listing.pickupWindows.find((w) => w.id === deal.agreed?.offer.pickupWindowId);
-  return win ? at.getTime() > new Date(win.endsAt).getTime() : false;
+export function pickupWindowEnded(deal: Deal, at = new Date()): boolean {
+  return deal.agreed ? at.getTime() > new Date(deal.agreed.pickupEndsAt).getTime() : false;
 }
 
 /** No-show: the authorization is voided and the hold on the buyer's money is released. */
@@ -559,7 +566,7 @@ export async function refreshFromPayPal(deal: Deal, listing: Listing): Promise<b
     await payoutSeller(deal, listing);
   }
   // The buyer did not show by the end of the pickup window (plus an hour of grace): release the hold.
-  if (deal.status === "held" && !deal.payment.captureId && pickupWindowEnded(deal, listing, new Date(Date.now() - 3600_000))) {
+  if (deal.status === "held" && !deal.payment.captureId && pickupWindowEnded(deal, new Date(Date.now() - 3600_000))) {
     await voidHold(deal, listing, `${deal.buyerName} did not show by the end of the pickup window.`);
   }
   return JSON.stringify([deal.status, deal.payment]) !== before;

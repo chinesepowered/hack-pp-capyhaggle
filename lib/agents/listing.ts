@@ -86,8 +86,11 @@ export function draftFromJson(json: Record<string, unknown>, tag: AiTag): Listin
 
 const VISION_PROMPT = [
   "You write listings for a local secondhand marketplace from the seller's photos.",
-  "Look carefully at the photos and describe only what you can actually see. Do not guess a brand, do not invent history, and never claim anything is new or flawless unless it clearly is.",
-  "Measurements are read from a photo, so every measurement is an estimate: write them like 'about 16 in wheels'.",
+  "Look carefully at every photo and describe only what you can actually see. Do not guess a brand, do not invent history, and never claim anything is new or flawless unless it clearly is.",
+  "Be a careful inspector. Check metal parts (chain, bolts, spokes, hinges) for rust, check paint and surfaces for scratches or scuffs, check fabric for stains or fading, check tires and wheels. Honest flaws make a listing trustworthy, so list each visible one concretely with where it is.",
+  "List the accessories you can see attached (for example a bell, a rack, reflectors, a shelf, a canopy).",
+  "If the seller added a note, treat what it says as true and include those facts, in the seller's words, without embellishing.",
+  "Measurements are read from a photo, so every measurement is an estimate: write them like 'about 16 in'.",
   "Answer with JSON only, in this shape:",
   "{",
   '  "title": "short plain title, no brand names",',
@@ -95,11 +98,11 @@ const VISION_PROMPT = [
   '  "condition_grade": "like new | good | fair | needs work",',
   '  "description": "2 or 3 plain sentences a buyer would find useful",',
   '  "condition_notes": ["what looks good, concretely"],',
-  '  "flaws": ["visible wear or damage, concretely; empty if none is visible"],',
+  '  "flaws": ["each visible flaw with its location; empty if none is visible"],',
   '  "measurements": [{"label": "Wheel size", "value": "about 16 in"}],',
-  '  "features": ["visible features, such as hand brake, drawer, canopy"],',
-  '  "included": ["accessories visible in the photos that come with it"],',
-  '  "possible_extras": ["up to 2 small things a seller of this item could plausibly throw in, such as a bell or a rain cover"]',
+  '  "features": ["visible features and facts from the seller\'s note"],',
+  '  "included": ["accessories that come with it, not the item itself"],',
+  '  "possible_extras": ["up to 2 small things a seller of this item could plausibly throw in"]',
   "}",
 ].join("\n");
 
@@ -132,7 +135,11 @@ export async function draftListing(photos: PhotoInput[], sellerHint: string, fix
 }
 
 /** Price range from the drafted facts. Always labeled as an estimate. */
-export async function suggestPrice(draft: Pick<ListingDraft, "title" | "category" | "conditionGrade" | "facts">, fixtureKey: string): Promise<PriceDraft> {
+export async function suggestPrice(
+  draft: Pick<ListingDraft, "title" | "category" | "conditionGrade" | "facts">,
+  fixtureKey: string,
+  sellerHint = "",
+): Promise<PriceDraft> {
   const res = await aiChat({
     purpose: `listing.price.${fixtureKey}`,
     label: "Price estimate",
@@ -143,13 +150,20 @@ export async function suggestPrice(draft: Pick<ListingDraft, "title" | "category
         role: "system",
         content: [
           "You estimate a fair local resale price range in US dollars for a used item, from its condition and from what similar used items typically sell for locally.",
-          "This is an estimate, not an appraisal. Be realistic for a person-to-person sale, not retail.",
+          "This is an estimate, not an appraisal. Be realistic for a person-to-person sale, not retail. If the seller's note gives the original price or age, use it: lightly used items in good condition commonly resell for around 40 to 60 percent of what they cost new.",
           'Answer with JSON only: {"low": integer dollars, "high": integer dollars, "suggested": integer dollars, "basis": "one sentence on what the range is based on, mentioning condition"}',
         ].join("\n"),
       },
       {
         role: "user",
-        content: [`Item: ${draft.title}`, `Category: ${draft.category}`, `Condition: ${draft.conditionGrade}`, "Facts:", ...draft.facts.map((f) => `- ${f.text}`)].join("\n"),
+        content: [
+          `Item: ${draft.title}`,
+          `Category: ${draft.category}`,
+          `Condition: ${draft.conditionGrade}`,
+          ...(sellerHint ? [`Seller's note: ${sellerHint.slice(0, 300)}`] : []),
+          "Facts:",
+          ...draft.facts.map((f) => `- ${f.text}`),
+        ].join("\n"),
       },
     ],
   });

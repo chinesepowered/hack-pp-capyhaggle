@@ -1,0 +1,492 @@
+/*
+ * Motion for the Capy vs Capy mascots (Capy.tsx and HotSpring.tsx).
+ *
+ * Rule of thumb used throughout: the markup alone always shows the resting or
+ * end state (the nose bump pose is an SVG transform attribute). The classes
+ * below only add motion on top, so with reduced motion, with CSS disabled, or
+ * in a static export the art still reads correctly.
+ */
+
+/* ---------------------------------------------------------------- */
+/* Character face                                                    */
+/* ---------------------------------------------------------------- */
+
+.talkMouth {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: capy-talk 0.38s ease-in-out infinite alternate;
+}
+
+@keyframes capy-talk {
+  from {
+    transform: scaleY(0.22);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.blink {
+  transform-box: fill-box;
+  transform-origin: 50% 60%;
+  animation: capy-blink 5.4s linear infinite;
+}
+
+.blinkLate {
+  animation-delay: -2.1s;
+}
+
+@keyframes capy-blink {
+  0%,
+  93.5%,
+  100% {
+    transform: scaleY(1);
+  }
+  96.5% {
+    transform: scaleY(0.1);
+  }
+}
+
+.thought {
+  animation: capy-thought-float 2.6s ease-in-out infinite;
+}
+
+@keyframes capy-thought-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+
+.thoughtDot {
+  animation: capy-thought-dot 1.2s ease-in-out infinite;
+}
+
+.d2 {
+  animation-delay: 0.18s;
+}
+
+.d3 {
+  animation-delay: 0.36s;
+}
+
+@keyframes capy-thought-dot {
+  0%,
+  70%,
+  100% {
+    opacity: 0.3;
+  }
+  35% {
+    opacity: 1;
+  }
+}
+
+.sweat {
+  animation: capy-sweat 1.8s ease-in infinite;
+}
+
+@keyframes capy-sweat {
+  0% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(9px);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Hot spring scene                                                  */
+/* ---------------------------------------------------------------- */
+
+/*
+ * Layout defaults live in the components layer so Tailwind utilities passed
+ * through className (w-*, hidden, and so on) can still override them.
+ */
+@layer components {
+  .scene {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.scene {
+  transition: filter 0.4s ease;
+}
+
+.paused {
+  filter: saturate(0.55);
+}
+
+.paused * {
+  animation-play-state: paused !important;
+}
+
+.steam {
+  animation: spring-steam 6.5s ease-in-out infinite;
+}
+
+.steamB {
+  animation-duration: 7.8s;
+  animation-delay: -2.4s;
+}
+
+.steamC {
+  animation-duration: 5.9s;
+  animation-delay: -4.1s;
+}
+
+@keyframes spring-steam {
+  0% {
+    transform: translate(0, 16px);
+    opacity: 0;
+  }
+  22% {
+    opacity: 0.62;
+  }
+  60% {
+    opacity: 0.42;
+  }
+  100% {
+    transform: translate(6px, -30px);
+    opacity: 0;
+  }
+}
+
+.yuzu {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: spring-yuzu 3.6s ease-in-out infinite;
+}
+
+.yuzuB {
+  animation-duration: 4.3s;
+  animation-delay: -1.3s;
+}
+
+.yuzuC {
+  animation-duration: 3.9s;
+  animation-delay: -2.6s;
+}
+
+@keyframes spring-yuzu {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(2.2px) rotate(4deg);
+  }
+}
+
+.ripple {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: spring-ripple 3.8s ease-out infinite;
+}
+
+.rippleB {
+  animation-delay: -1.9s;
+}
+
+@keyframes spring-ripple {
+  0% {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.14);
+    opacity: 0;
+  }
+}
+
+.shimmer {
+  animation: spring-shimmer 5s ease-in-out infinite alternate;
+}
+
+.shimmerB {
+  animation-duration: 6.4s;
+  animation-delay: -2s;
+}
+
+@keyframes spring-shimmer {
+  from {
+    transform: translateX(-7px);
+  }
+  to {
+    transform: translateX(7px);
+  }
+}
+
+.lanternGlow {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: spring-lantern 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes spring-lantern {
+  from {
+    opacity: 0.7;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* Gentle breathing for whoever is not speaking. */
+.soak {
+  animation: spring-soak 4.6s ease-in-out infinite;
+}
+
+.soakLate {
+  animation-delay: -2.3s;
+}
+
+@keyframes spring-soak {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1.8px);
+  }
+}
+
+/* The speaker bobs a little faster and gets a warm halo plus talk marks. */
+.speaking {
+  animation: spring-speak 0.9s ease-in-out infinite;
+}
+
+@keyframes spring-speak {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.halo {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: spring-halo 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes spring-halo {
+  from {
+    opacity: 0.6;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.talkMarks {
+  animation: spring-talk-marks 0.9s steps(2, jump-none) infinite;
+}
+
+@keyframes spring-talk-marks {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+
+/*
+ * Nose bump. Runs in the figure's own 240 unit space (Biscuit's group is
+ * mirrored, so the same keyframes lean both toward the middle). The last
+ * keyframe must equal DEAL_POSE in HotSpring.tsx:
+ *   translate(45 0) rotate(6 100 215)
+ */
+.bump {
+  animation: spring-bump 1.3s cubic-bezier(0.35, 0.1, 0.3, 1) both;
+}
+
+@keyframes spring-bump {
+  0% {
+    transform: translate(0px, 0px) translate(100px, 215px) rotate(0deg) translate(-100px, -215px);
+  }
+  28% {
+    transform: translate(-8px, 0px) translate(100px, 215px) rotate(-4deg) translate(-100px, -215px);
+  }
+  60% {
+    transform: translate(50px, 0px) translate(100px, 215px) rotate(7.5deg) translate(-100px, -215px);
+  }
+  76% {
+    transform: translate(41px, 0px) translate(100px, 215px) rotate(5deg) translate(-100px, -215px);
+  }
+  100% {
+    transform: translate(45px, 0px) translate(100px, 215px) rotate(6deg) translate(-100px, -215px);
+  }
+}
+
+/* Last keyframe must equal WALKED_POSE: translate(-22 0) rotate(-9 100 215) */
+.turnAway {
+  animation: spring-turn-away 0.7s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+}
+
+@keyframes spring-turn-away {
+  0% {
+    transform: translate(0px, 0px) translate(100px, 215px) rotate(0deg) translate(-100px, -215px);
+  }
+  100% {
+    transform: translate(-22px, 0px) translate(100px, 215px) rotate(-9deg) translate(-100px, -215px);
+  }
+}
+
+/* A little "hmph" puff from whoever holds firm after walking away. */
+.huff {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: spring-huff 2.2s ease-out 0.5s infinite both;
+}
+
+@keyframes spring-huff {
+  0% {
+    transform: translate(-6px, 6px) scale(0.4);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(5px, -5px) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(9px, -9px) scale(1.12);
+    opacity: 0;
+  }
+}
+
+/* Ripples and shadows follow the bodies when a pose moves them. */
+.slide {
+  transition: transform 1.1s cubic-bezier(0.35, 0.1, 0.3, 1);
+}
+
+/* Heart and sparkles at the contact point. */
+.burstHeart {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation:
+    spring-heart-pop 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.4) 0.72s both,
+    spring-heart-float 2.4s ease-in-out 1.4s infinite;
+}
+
+@keyframes spring-heart-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spring-heart-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.06);
+  }
+}
+
+.spark {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation:
+    spring-spark-pop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4) 0.78s both,
+    spring-spark-twinkle 1.6s ease-in-out 1.4s infinite alternate;
+}
+
+.sparkB {
+  animation-delay: 0.88s, 1.7s;
+}
+
+.sparkC {
+  animation-delay: 0.98s, 2s;
+}
+
+@keyframes spring-spark-pop {
+  0% {
+    transform: scale(0) rotate(-40deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes spring-spark-twinkle {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.72);
+    opacity: 0.65;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Reduced motion: no movement, every pose shows its end state.      */
+/* ---------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .talkMouth,
+  .blink,
+  .thought,
+  .thoughtDot,
+  .sweat,
+  .steam,
+  .yuzu,
+  .ripple,
+  .shimmer,
+  .lanternGlow,
+  .soak,
+  .speaking,
+  .halo,
+  .talkMarks,
+  .bump,
+  .turnAway,
+  .huff,
+  .burstHeart,
+  .spark {
+    animation: none !important;
+  }
+
+  .scene,
+  .slide {
+    transition: none;
+  }
+}

@@ -106,6 +106,9 @@ const CLAIM_TERMS: string[] = [
   "never used", "unused", "barely used", "hardly used", "lightly used", "showroom", "refurbished", "restored", "refinished",
   "professionally serviced", "recently serviced", "tuned up", "tune-up", "tune up", "warranty", "receipt", "original box", "original packaging",
   "certified", "authentic", "vintage", "antique", "smoke-free", "smoke free", "pet-free", "pet free", "one owner",
+  "works perfectly", "rides perfectly", "runs perfectly", "good as new", "great shape", "excellent shape", "perfect shape", "great condition",
+  // claims that a flaw is trivial are claims too
+  "quick wipe", "wipe down", "wipe-down", "wipes off", "easy fix", "easily fixed", "buffs out", "polishes out", "just needs", "only needs", "cosmetic only", "purely cosmetic",
   // negated defects are claims too
   "no scratches", "no scuffs", "no rust", "no damage", "no stains", "no tears", "no dents", "no cracks", "no chips", "no wear", "no wobble",
   // parts and materials

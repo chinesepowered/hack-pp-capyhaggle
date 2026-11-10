@@ -9,7 +9,7 @@ import type { AiTag, Deal, Listing, Want } from "../types";
 export function dealFacts(deal: Deal, listing: Listing): string[] {
   if (!deal.agreed) return [];
   const { offer, feeCents, sellerNetCents } = deal.agreed;
-  const win = listing.pickupWindows.find((w) => w.id === offer.pickupWindowId)?.label ?? offer.pickupWindowId;
+  const win = deal.agreed.pickupLabel;
   const extras = offer.extras.map((id) => listing.extras.find((e) => e.id === id)?.label ?? id);
   return [
     `Item: ${listing.title}`,
@@ -23,7 +23,7 @@ export function dealFacts(deal: Deal, listing: Listing): string[] {
 
 function scriptedSummary(deal: Deal, listing: Listing): { buyer: string; seller: string } {
   const { offer, sellerNetCents } = deal.agreed!;
-  const win = listing.pickupWindows.find((w) => w.id === offer.pickupWindowId)?.label ?? offer.pickupWindowId;
+  const win = deal.agreed!.pickupLabel;
   return {
     buyer: `Barley agreed ${formatUsd(offer.priceCents)} for the ${listing.title.toLowerCase()}, pickup ${win}. PayPal holds your money until the seller scans your QR code.`,
     seller: `Biscuit agreed ${formatUsd(offer.priceCents)} for the ${listing.title.toLowerCase()}, pickup ${win}. You receive ${formatUsdExact(sellerNetCents)} the moment you scan the buyer's QR code.`,

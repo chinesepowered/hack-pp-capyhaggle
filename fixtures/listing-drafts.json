@@ -1,0 +1,244 @@
+{
+  "bike": {
+    "title": "Green Kids Bike with Training Wheels",
+    "category": "kids bike",
+    "description": "A green children's bicycle with a blue seat and red accents. According to the seller, it was bought new two summers ago and fits ages 5 to 7.",
+    "conditionGrade": "good",
+    "facts": [
+      {
+        "id": "f1",
+        "kind": "condition",
+        "text": "Tires appear inflated"
+      },
+      {
+        "id": "f2",
+        "kind": "condition",
+        "text": "Paint on the frame is mostly vibrant"
+      },
+      {
+        "id": "f3",
+        "kind": "flaw",
+        "text": "Scuffs and paint chips on the red front fender"
+      },
+      {
+        "id": "f4",
+        "kind": "flaw",
+        "text": "Surface rust on the chain and drivetrain"
+      },
+      {
+        "id": "f5",
+        "kind": "flaw",
+        "text": "Scuffs on the red rear rack"
+      },
+      {
+        "id": "f6",
+        "kind": "measurement",
+        "text": "Wheel size: about 16 in",
+        "estimate": true
+      },
+      {
+        "id": "f7",
+        "kind": "feature",
+        "text": "Removable training wheels"
+      },
+      {
+        "id": "f8",
+        "kind": "feature",
+        "text": "Low-step frame"
+      },
+      {
+        "id": "f9",
+        "kind": "feature",
+        "text": "Rear cargo rack"
+      },
+      {
+        "id": "f10",
+        "kind": "included",
+        "text": "Training wheels"
+      },
+      {
+        "id": "f11",
+        "kind": "included",
+        "text": "Front reflector"
+      },
+      {
+        "id": "f12",
+        "kind": "included",
+        "text": "Rear reflector"
+      }
+    ],
+    "suggestedExtras": [
+      {
+        "id": "bike-helmet",
+        "label": "Bike helmet"
+      },
+      {
+        "id": "bike-lock",
+        "label": "Bike lock"
+      }
+    ],
+    "ai": {
+      "model": "google/gemma-4-31B-it",
+      "purpose": "Listing written from photos"
+    },
+    "price": {
+      "lowCents": 6000,
+      "highCents": 9000,
+      "suggestedCents": 7500,
+      "basis": "Based on the item being two years old with visible wear like rust and scuffs, it falls below the typical 40-60% resale range for lightly used goods, placing it in the lower end of the market for a 16-inch kids' bike.",
+      "ai": {
+        "model": "Qwen/Qwen3.8-27B",
+        "purpose": "Price estimate"
+      }
+    },
+    "photoCredit": "Photos: Donald Trung Quoc Don, Wikimedia Commons, CC BY-SA 4.0"
+  },
+  "table": {
+    "title": "Teak Side Table",
+    "category": "furniture",
+    "description": "Mid-century style side table made of teak. It features a square top and a lower storage shelf.",
+    "conditionGrade": "good",
+    "facts": [
+      {
+        "id": "f1",
+        "kind": "condition",
+        "text": "Wood finish has a consistent glow"
+      },
+      {
+        "id": "f2",
+        "kind": "condition",
+        "text": "Sturdy construction"
+      },
+      {
+        "id": "f3",
+        "kind": "flaw",
+        "text": "Minor surface scratches on the top tabletop"
+      },
+      {
+        "id": "f4",
+        "kind": "measurement",
+        "text": "Width: about 20 in",
+        "estimate": true
+      },
+      {
+        "id": "f5",
+        "kind": "measurement",
+        "text": "Height: about 22 in",
+        "estimate": true
+      },
+      {
+        "id": "f6",
+        "kind": "feature",
+        "text": "Teak wood"
+      },
+      {
+        "id": "f7",
+        "kind": "feature",
+        "text": "Mid-century style"
+      },
+      {
+        "id": "f8",
+        "kind": "feature",
+        "text": "Sturdy"
+      },
+      {
+        "id": "f9",
+        "kind": "feature",
+        "text": "Lower shelf"
+      }
+    ],
+    "suggestedExtras": [
+      {
+        "id": "wood-polish",
+        "label": "Wood polish"
+      },
+      {
+        "id": "coasters",
+        "label": "Coasters"
+      }
+    ],
+    "ai": {
+      "model": "google/gemma-4-31B-it",
+      "purpose": "Listing written from photos"
+    },
+    "price": {
+      "lowCents": 6000,
+      "highCents": 9500,
+      "suggestedCents": 7500,
+      "basis": "Based on the original $160 cost and 'good' condition with minor scratches, the price reflects a 40-60% resale value typical for used mid-century teak furniture.",
+      "ai": {
+        "model": "Qwen/Qwen3.8-27B",
+        "purpose": "Price estimate"
+      }
+    },
+    "photoCredit": "Photos: The Living Room (Flickr), CC BY 2.0"
+  },
+  "stroller": {
+    "title": "Folding Stroller",
+    "category": "stroller",
+    "description": "A navy blue and white striped stroller. According to the seller, it was used for one child and folds flat for transport in a car.",
+    "conditionGrade": "good",
+    "facts": [
+      {
+        "id": "f1",
+        "kind": "condition",
+        "text": "Fabric appears clean and intact"
+      },
+      {
+        "id": "f2",
+        "kind": "condition",
+        "text": "Frame is straight and sturdy"
+      },
+      {
+        "id": "f3",
+        "kind": "flaw",
+        "text": "Scuff marks on the white plastic front footrest"
+      },
+      {
+        "id": "f4",
+        "kind": "flaw",
+        "text": "Dirt and wear on the wheels"
+      },
+      {
+        "id": "f5",
+        "kind": "feature",
+        "text": "Folds flat for the car"
+      },
+      {
+        "id": "f6",
+        "kind": "feature",
+        "text": "Used for one kid"
+      },
+      {
+        "id": "f7",
+        "kind": "included",
+        "text": "Safety harness"
+      }
+    ],
+    "suggestedExtras": [
+      {
+        "id": "cup-holder",
+        "label": "Cup holder"
+      },
+      {
+        "id": "rain-cover",
+        "label": "Rain cover"
+      }
+    ],
+    "ai": {
+      "model": "google/gemma-4-31B-it",
+      "purpose": "Listing written from photos"
+    },
+    "price": {
+      "lowCents": 8000,
+      "highCents": 13000,
+      "suggestedCents": 10000,
+      "basis": "Based on the item being in good condition with minor cosmetic wear (scuffs/dirt) and a history of single-child use, which typically supports a resale value of roughly 40-60% of the $220 original price.",
+      "ai": {
+        "model": "Qwen/Qwen3.8-27B",
+        "purpose": "Price estimate"
+      }
+    },
+    "photoCredit": "Photo: Daniel X. O'Neil (Flickr), CC BY 2.0"
+  }
+}

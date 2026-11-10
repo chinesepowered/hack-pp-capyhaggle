@@ -286,6 +286,9 @@ export interface Deal {
   guidance: { buyer: string[]; seller: string[] };
   agreed?: {
     offer: Offer;
+    /** Copied from the listing at deal time so history stays readable when windows roll forward. */
+    pickupLabel: string;
+    pickupEndsAt: string;
     atTurn: number;
     feeCents: number;
     sellerNetCents: number;

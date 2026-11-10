@@ -1,0 +1,79 @@
+<!-- Capy vs Capy mascot art. Original artwork, generated from components/mascots. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Biscuit, the seller&#x27;s capybara agent" width="480" height="480">
+<title>Biscuit, the seller's capybara agent</title>
+<g>
+<g>
+<defs>
+<clipPath id="biscuit-head">
+<path d="M 95 62 C 114 53 144 51 160 53 C 168 48 181 48 189 55 C 203 55 216 56 224 60 C 232 63 237 70 238 82 C 239 104 239 124 235 138 C 231 152 214 160 190 160 C 164 160 134 164 110 156 C 91 149 79 130 78 108 C 77 88 83 70 95 62 Z"/>
+</clipPath>
+<clipPath id="biscuit-body">
+<path d="M 12 276 L 12 246 C 8 196 26 150 68 130 C 96 119 126 118 148 128 C 174 140 188 194 186 246 L 186 276 Z"/>
+</clipPath>
+</defs>
+<path d="M 12 276 L 12 246 C 8 196 26 150 68 130 C 96 119 126 118 148 128 C 174 140 188 194 186 246 L 186 276 Z" fill="#c98f55"/>
+<g clip-path="url(#biscuit-body)">
+<path d="M 196 150 C 170 150 140 168 128 200 C 122 216 122 232 124 246 L 124 276 L 190 276 Z" fill="#f4dcb4" opacity="0.9"/>
+<path d="M 10 276 L 10 246 C 14 206 28 170 52 146 C 40 176 36 210 40 246 L 40 276 Z" fill="#a66f3b" opacity="0.55"/>
+</g>
+<g fill="none" stroke="#a66f3b" stroke-width="3.2" stroke-linecap="round">
+<path d="M 56 176 l 7 -9"/>
+<path d="M 72 190 l 7 -9"/>
+<path d="M 50 204 l 7 -9"/>
+<path d="M 78 214 l 6 -8"/>
+</g>
+<path d="M 12 276 L 12 246 C 8 196 26 150 68 130 C 96 119 126 118 148 128 C 174 140 188 194 186 246 L 186 276 Z" fill="none" stroke="#2a1f17" stroke-width="4" stroke-linejoin="round"/>
+<g>
+<path d="M 92 172 L 122 180 C 121 198 123 214 128 230 L 96 238 C 90 218 89 194 92 172 Z" fill="#c8443a" stroke="#2a1f17" stroke-width="4" stroke-linejoin="round"/>
+<path d="M 93.5 216 L 125 209" stroke="#f6e3c3" stroke-width="5" stroke-linecap="butt"/>
+<path d="M 95 226 L 127 219" stroke="#f6e3c3" stroke-width="2.5" stroke-linecap="butt"/>
+<path d="M 66 118 C 72 146 96 168 134 175 C 160 179 186 174 202 158 C 204 168 203 178 199 186 C 180 200 142 203 112 194 C 84 185 62 160 56 130 C 56 122 60 118 66 118 Z" fill="#c8443a" stroke="#2a1f17" stroke-width="4" stroke-linejoin="round"/>
+<path d="M 62 140 C 74 164 100 182 136 188 C 160 191 182 188 198 176" fill="none" stroke="#a63128" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<path d="M 117 58 C 115 47 120 39 128 40 C 136 41 139 50 136 57 Z" fill="#a66f3b" stroke="#2a1f17" stroke-width="4" stroke-linejoin="round"/>
+<path d="M 95 62 C 114 53 144 51 160 53 C 168 48 181 48 189 55 C 203 55 216 56 224 60 C 232 63 237 70 238 82 C 239 104 239 124 235 138 C 231 152 214 160 190 160 C 164 160 134 164 110 156 C 91 149 79 130 78 108 C 77 88 83 70 95 62 Z" fill="#c98f55"/>
+<g clip-path="url(#biscuit-head)">
+<path d="M 78 104 C 78 134 94 158 126 163 L 76 172 Z" fill="#a66f3b" opacity="0.45"/>
+<path d="M 246 94 C 228 92 206 98 190 114 C 176 128 168 150 174 172 L 250 172 Z" fill="#f0d3a6"/>
+<ellipse cx="166" cy="130" rx="11" ry="6.5" fill="#e8806c" opacity="0.3"/>
+<path d="M 204 64 C 214 58 232 60 242 68 L 244 86 C 234 91 222 91 213 88 C 204 85 198 72 204 64 Z" fill="#93603c"/>
+<path d="M 209 66.5 C 216 64 225 65 231 69" fill="none" stroke="#b98860" stroke-width="2.6" stroke-linecap="round"/>
+<ellipse cx="212.5" cy="78.5" rx="4.6" ry="2.7" transform="rotate(24 212.5 78.5)" fill="#2a1f17"/>
+<ellipse cx="230" cy="79.5" rx="3.4" ry="2.5" transform="rotate(-20 230 79.5)" fill="#2a1f17"/>
+<g fill="#a66f3b">
+<circle cx="190" cy="114" r="1.7"/>
+<circle cx="198" cy="119" r="1.7"/>
+<circle cx="188" cy="124" r="1.7"/>
+</g>
+</g>
+<path d="M 95 62 C 114 53 144 51 160 53 C 168 48 181 48 189 55 C 203 55 216 56 224 60 C 232 63 237 70 238 82 C 239 104 239 124 235 138 C 231 152 214 160 190 160 C 164 160 134 164 110 156 C 91 149 79 130 78 108 C 77 88 83 70 95 62 Z" fill="none" stroke="#2a1f17" stroke-width="4" stroke-linejoin="round"/>
+<path d="M 88 67 C 82 55 86 42 96 40 C 107 38 113 49 110 61" fill="#c98f55" stroke="#2a1f17" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 93 60 C 91 53 93 47 97 46 C 102 45 104 52 103 58 Z" fill="#9b6237"/>
+<path d="M 131 55 C 127 47 129 39 136 35 C 136 41 139 45 144 47 C 146 41 152 37 160 38 C 156 43 155 48 157 53" fill="#c98f55" stroke="#2a1f17" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<g>
+<path d="M 221 90 C 220 102 217 114 213 123" fill="none" stroke="#2a1f17" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 213 123 C 206 136 190 137 180 126" fill="none" stroke="#2a1f17" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 213 123 C 217 129 223 130 228 126" fill="none" stroke="#2a1f17" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g>
+<g transform="rotate(0 134 91)">
+<path d="M 126 86.2 A 9 10.5 0 1 0 142 86.2 Z" fill="#2a1f17"/>
+<circle cx="136.7" cy="90.5" r="2.7" fill="#fff"/>
+<circle cx="131.3" cy="95.7" r="1.3" fill="#fff" opacity="0.6"/>
+<path d="M 123.5 86.2 L 144.5 86.2" stroke="#2a1f17" stroke-width="3.4" stroke-linecap="round"/>
+</g>
+</g>
+<g>
+<g transform="rotate(0 175 84)">
+<path d="M 168.8 79.6 A 7 9.5 0 1 0 181.2 79.6 Z" fill="#2a1f17"/>
+<circle cx="177.1" cy="83.3" r="2.1" fill="#fff"/>
+<circle cx="172.9" cy="88.3" r="1.1" fill="#fff" opacity="0.6"/>
+<path d="M 166.3 79.6 L 183.7 79.6" stroke="#2a1f17" stroke-width="3.4" stroke-linecap="round"/>
+</g>
+</g>
+<path d="M 123 72 Q 134 68.5 145 71.4" fill="none" stroke="#2a1f17" stroke-width="4" stroke-linecap="round"/>
+<path d="M 184 66 Q 176 62.5 168 65.4" fill="none" stroke="#2a1f17" stroke-width="4" stroke-linecap="round"/>
+<path d="M 88 165 C 95 158 116 162 126 170 C 130 178 128 188 122 192 C 110 195 93 191 87 183 C 83 177 84 170 88 165 Z" fill="#d85a4e" stroke="#2a1f17" stroke-width="4" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

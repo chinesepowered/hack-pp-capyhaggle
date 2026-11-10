@@ -1,3 +1,5 @@
-export default function Home() {
-  return <main className="p-6">Capy vs Capy</main>;
+import { Home } from "@/components/Home";
+
+export default function Page() {
+  return <Home />;
 }
