@@ -254,6 +254,8 @@ Other commands:
 | `GET /api/jobs/sweep` | Releases holds whose pickup window ended (also runs whenever a deal is opened). |
 | `pnpm tsx scripts/dev-e2e.ts` | A full live deal plus a refund, from the command line. `--void` runs the scam check and the no-show path. |
 | `pnpm tsx scripts/record-replay.ts` | Re-records the Replay fixture from a real run. |
+| `pnpm tsx scripts/screenshots.ts` | Retakes `docs/screenshots` from a live run (needs the app running on port 3100). |
+| `pnpm tsx scripts/video/record.ts`, then `narrate.ts`, then `compose.ts` | Rebuilds the demo video: Playwright footage of a real run, ElevenLabs narration, ffmpeg composition. |
 
 ### Replay mode
 

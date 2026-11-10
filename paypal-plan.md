@@ -65,7 +65,7 @@ a retry, or two tabs cannot produce two orders, two captures or two payouts.
 | Create order | `claims/{dealId}/order` | `store.claim` returns false; PayPal also replays the first response for the same `PayPal-Request-Id` | loser re-reads the deal and returns the stored order id | `lib/deals.ts` `placeHold` |
 | Authorize order | `claims/{dealId}/authorize` | same | loser re-reads the order from PayPal | `lib/deals.ts` `authorizeHold` |
 | Capture | `claims/{dealId}/capture` (also guarded by the single-use QR nonce) | same | loser re-reads the authorization | `lib/deals.ts` `completeHandoff` |
-| Payout | `claims/{dealId}/payout`, `sender_batch_id = cvc-{dealId}-payout` | same; PayPal rejects a repeated `sender_batch_id` | loser reads the stored batch id | `lib/deals.ts` `payoutSeller` |
+| Payout | `claims/{dealId}/payout`, `sender_batch_id = cvc-{dealId}-{salt}-payout` | same; PayPal rejects a repeated `sender_batch_id` | loser reads the stored batch id | `lib/deals.ts` `payoutSeller` |
 | Void | `claims/{dealId}/void` | same | loser re-reads the authorization | `lib/deals.ts` `voidHold` |
 | Refund | `claims/{dealId}/refund` | same | loser re-reads the capture | `lib/deals.ts` `refundBuyer` |
 
@@ -75,7 +75,7 @@ A claim is released when PayPal refuses the call with a 4xx, so a later legitima
 
 | Write | The operation you re-read with | The reference you search by | Where in the code | The test that fails the connection |
 | --- | --- | --- | --- | --- |
-| Create order | repeat `createOrder` with the same `PayPal-Request-Id` (PayPal returns the original order) | the request id `cvc-{dealId}-order-{n}` | `lib/paypal/core.ts` `settleUnknown` and `lib/paypal/orders.ts` | `tests/paypal-unknown.test.ts` |
+| Create order | repeat `createOrder` with the same `PayPal-Request-Id` (PayPal returns the original order) | the request id `cvc-{dealId}-{salt}-order` | `lib/paypal/orders.ts` `createHoldOrder` | `tests/paypal-unknown.test.ts` |
 | Authorize order | `getOrder` | order id | `lib/paypal/orders.ts` `authorizeOrder` | `tests/paypal-unknown.test.ts` |
 | Capture | `getAuthorizedPayment` then `getOrder` | authorization id | `lib/paypal/payments.ts` `captureAuthorization` | `tests/paypal-unknown.test.ts` |
 | Void | `getAuthorizedPayment` | authorization id | `lib/paypal/payments.ts` `voidAuthorization` | `tests/paypal-unknown.test.ts` |
@@ -88,11 +88,11 @@ A network failure or timeout on a write is reported to the caller as "unknown, c
 
 | Invariant | Where the legal set comes from | Enforced where | The test that proves it |
 | --- | --- | --- | --- |
-| An order amount equals the agreed price, and the agreed price is inside both mandates | the deal record and the two signed mandates | `lib/guards.ts` `guardCreateHold`, before the claim | `tests/guards.test.ts` |
-| An agent may only read or refund objects of its own deal | `deal.payment.orderId`, `deal.payment.captureId` | `lib/guards.ts` `guardGetOrder`, `guardRefund` | `tests/guards.test.ts` |
-| Capture only for a deal whose QR token verifies, is unexpired and unused | `QR_SIGNING_SECRET`, the nonce stored on the deal | `lib/qr.ts`, `lib/deals.ts` `completeHandoff` | `tests/qr.test.ts` |
-| Payout amount equals price minus the fee shown at Accept | `lib/money.ts` `feeFor` | `lib/deals.ts` `payoutSeller` | `tests/money.test.ts` |
-| Refund only within 24 hours of capture and never more than was captured | capture time and amount re-read from PayPal | `lib/guards.ts` `guardRefund` | `tests/guards.test.ts` |
+| An order amount equals the agreed price, and the agreed price is inside both mandates | the deal record and the two signed mandates | `lib/guards.ts` `guardCreateHold`, before the claim | `tests/money-rules.test.ts` (guards) |
+| An agent may only read or refund objects of its own deal | `deal.payment.orderId`, `deal.payment.captureId` | `lib/guards.ts` `guardGetOrder`, `guardRefund` | `tests/money-rules.test.ts` (guards) |
+| Capture only for a deal whose QR token verifies, is unexpired and unused | `QR_SIGNING_SECRET`, the nonce stored on the deal | `lib/qr.ts`, `lib/deals.ts` `completeHandoff` | `tests/money-rules.test.ts` (pickup QR) and `tests/replay.test.ts` |
+| Payout amount equals price minus the fee shown at Accept | `lib/money.ts` `feeFor` | `lib/deals.ts` `payoutSeller` | `tests/money-rules.test.ts` (money) |
+| Refund only within 24 hours of capture and never more than was captured | capture time and amount re-read from PayPal | `lib/guards.ts` `guardRefund` | `tests/money-rules.test.ts` (guards) |
 
 ## OPTIONAL FIELDS
 
@@ -118,10 +118,10 @@ One mapping for every money route (`lib/paypal/errors.ts` `toClientError`):
 
 | status from PayPal | our route answers | the caller reads | test |
 | --- | --- | --- | --- |
-| 4xx other than 401, 403, 429 | the same 4xx | PayPal's `name`, `message`, first `details[].issue` and the `debug_id` | `tests/paypal-errors.test.ts` |
-| 401, 403 | 502 | "The marketplace's PayPal credentials were refused." | `tests/paypal-errors.test.ts` |
-| 429 | 503 | "PayPal is rate limiting us, try again shortly." | `tests/paypal-errors.test.ts` |
-| 5xx | 502 | "PayPal had a problem. Nothing was charged twice." | `tests/paypal-errors.test.ts` |
+| 4xx other than 401, 403, 429 | the same 4xx | PayPal's `name`, `message`, first `details[].issue` and the `debug_id` | `tests/money-rules.test.ts` (when PayPal says no) |
+| 401, 403 | 502 | "The marketplace's PayPal credentials were refused." | `tests/money-rules.test.ts` (when PayPal says no) |
+| 429 | 503 | "PayPal is rate limiting us, try again shortly." | `tests/money-rules.test.ts` (when PayPal says no) |
+| 5xx | 502 | "PayPal had a problem. Nothing was charged twice." | `tests/money-rules.test.ts` (when PayPal says no) |
 | no response, on a write | per UNKNOWN OUTCOMES | "Outcome unknown, checking with PayPal" then the settled state | `tests/paypal-unknown.test.ts` |
 | no response, on a read | 502 | fixed message | - |
 
