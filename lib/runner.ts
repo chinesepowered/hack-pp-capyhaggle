@@ -5,7 +5,7 @@
  */
 import { newContext, runInContext, type CallContext } from "./context";
 import { RuleError } from "./paypal/errors";
-import { getDeal, getListing, saveDeal } from "./repo";
+import { getDeal, getDealListing, saveDeal } from "./repo";
 import { loadTape, type TapeEntry } from "./tape";
 import type { Deal, Listing, Mode } from "./types";
 
@@ -41,7 +41,7 @@ export async function withDeal<T>(dealId: string, feature: string, fn: (deal: De
   return serialized(dealId, async () => {
     const deal = await getDeal(dealId);
     if (!deal) throw new RuleError("DEAL_NOT_FOUND", "That deal does not exist.", 404);
-    const listing = await getListing(deal.listingId);
+    const listing = await getDealListing(deal);
     if (!listing) throw new RuleError("LISTING_NOT_FOUND", "The listing for this deal is gone.", 404);
     const ctx: CallContext = newContext({
       feature,

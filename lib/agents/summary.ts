@@ -3,6 +3,7 @@
  * and parsing a buyer's free-text want. The numbers shown next to these texts always come from code.
  */
 import { aiChat, AiUnavailableError, cleanText, extractJson } from "../ai";
+import { currentContext } from "../context";
 import { formatUsd, formatUsdExact } from "../money";
 import type { AiTag, Deal, Listing, Want } from "../types";
 
@@ -93,6 +94,9 @@ function scriptedWant(text: string): ParsedWant {
 
 /** Reads a free-text want into structured fields. The private ceiling is confirmed by the buyer separately. */
 export async function parseWant(text: string): Promise<ParsedWant> {
+  // Replay has one recorded parse, for the demo request. Any other text is parsed by code.
+  const ctx = currentContext();
+  if (ctx.mode === "replay" && (ctx.tape as { wantText?: string } | undefined)?.wantText !== text) return scriptedWant(text);
   try {
     const res = await aiChat({
       purpose: "want.parse",

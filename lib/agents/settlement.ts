@@ -9,6 +9,7 @@ import { guardCreateHold, guardGetOrder, guardRefund, type GuardResult } from ".
 import { formatUsd, formatUsdExact, toPayPalValue } from "../money";
 import { runToolkitTool, toolkitToolDefinitions, type ToolkitResult } from "../paypal/toolkit";
 import type { RefereeListing } from "../referee";
+import { ReplayMissError } from "../tape";
 import type { AgentName, AiTag, Deal, TrailStep } from "../types";
 
 export interface ToolDecision<T> {
@@ -63,7 +64,7 @@ async function decide<T>(opts: {
     try {
       res = await aiChat({ purpose: opts.purpose, label: opts.label, messages, tools: [opts.tool], toolChoice: "required", temperature: 0, maxTokens: 500 });
     } catch (err) {
-      if (err instanceof AiUnavailableError) {
+      if (err instanceof AiUnavailableError || err instanceof ReplayMissError) {
         trail.push(trailStep("Model unavailable", "blocked", "Code made the tool call instead."));
         break;
       }

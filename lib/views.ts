@@ -122,8 +122,9 @@ export function dealView(deal: Deal, listing: Listing, viewer: Role, at = new Da
       pay: deal.status === "awaiting_payment" && viewer === "buyer",
       showQr: deal.status === "held" && viewer === "buyer",
       scan: deal.status === "held" && viewer === "seller",
-      reportNoShow: deal.status === "held" && viewer === "seller",
-      refund: refundOpen && viewer === "buyer",
+      // Replay has no recording of a void or a refund, so those two stay Live only.
+      reportNoShow: deal.status === "held" && viewer === "seller" && deal.mode === "live",
+      refund: refundOpen && viewer === "buyer" && deal.mode === "live",
     },
   };
 }

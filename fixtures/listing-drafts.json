@@ -2,69 +2,64 @@
   "bike": {
     "title": "Green Kids Bike with Training Wheels",
     "category": "kids bike",
-    "description": "A green children's bicycle with a blue seat and red accents. According to the seller, it was bought new two summers ago and fits ages 5 to 7.",
+    "description": "A green children's bicycle with a blue seat and red accents. It includes a rear cargo rack and removable training wheels.",
     "conditionGrade": "good",
     "facts": [
       {
         "id": "f1",
         "kind": "condition",
-        "text": "Tires appear inflated"
+        "text": "Paint on the frame is bright"
       },
       {
         "id": "f2",
         "kind": "condition",
-        "text": "Paint on the frame is mostly vibrant"
+        "text": "Tires appear to have plenty of tread"
       },
       {
         "id": "f3",
         "kind": "flaw",
-        "text": "Scuffs and paint chips on the red front fender"
+        "text": "Scuffs and paint chips on the red rear fender"
       },
       {
         "id": "f4",
         "kind": "flaw",
-        "text": "Surface rust on the chain and drivetrain"
+        "text": "Surface rust on the chain and sprocket"
       },
       {
         "id": "f5",
-        "kind": "flaw",
-        "text": "Scuffs on the red rear rack"
-      },
-      {
-        "id": "f6",
         "kind": "measurement",
         "text": "Wheel size: about 16 in",
         "estimate": true
       },
       {
+        "id": "f6",
+        "kind": "feature",
+        "text": "Bought new for $190 two summers ago"
+      },
+      {
         "id": "f7",
         "kind": "feature",
-        "text": "Removable training wheels"
+        "text": "Fits around age 5 to 7"
       },
       {
         "id": "f8",
         "kind": "feature",
-        "text": "Low-step frame"
+        "text": "Training wheels come off"
       },
       {
         "id": "f9",
-        "kind": "feature",
-        "text": "Rear cargo rack"
+        "kind": "included",
+        "text": "Training wheels"
       },
       {
         "id": "f10",
         "kind": "included",
-        "text": "Training wheels"
+        "text": "Rear cargo rack"
       },
       {
         "id": "f11",
         "kind": "included",
         "text": "Front reflector"
-      },
-      {
-        "id": "f12",
-        "kind": "included",
-        "text": "Rear reflector"
       }
     ],
     "suggestedExtras": [
@@ -85,7 +80,7 @@
       "lowCents": 6000,
       "highCents": 9000,
       "suggestedCents": 7500,
-      "basis": "Based on the item being two years old with visible wear like rust and scuffs, it falls below the typical 40-60% resale range for lightly used goods, placing it in the lower end of the market for a 16-inch kids' bike.",
+      "basis": "Based on the item being two years old with visible wear like rust and scuffs, it falls below the typical 40-60% resale value of the original $190 price.",
       "ai": {
         "model": "Qwen/Qwen3.8-27B",
         "purpose": "Price estimate"
@@ -94,9 +89,9 @@
     "photoCredit": "Photos: Donald Trung Quoc Don, Wikimedia Commons, CC BY-SA 4.0"
   },
   "table": {
-    "title": "Teak Side Table",
+    "title": "Teak side table",
     "category": "furniture",
-    "description": "Mid-century style side table made of teak. It features a square top and a lower storage shelf.",
+    "description": "A mid-century style side table with a lower storage shelf. The piece is made of teak and described by the seller as sturdy.",
     "conditionGrade": "good",
     "facts": [
       {
@@ -107,50 +102,33 @@
       {
         "id": "f2",
         "kind": "condition",
-        "text": "Sturdy construction"
+        "text": "Structure appears solid and level"
       },
       {
         "id": "f3",
         "kind": "flaw",
-        "text": "Minor surface scratches on the top tabletop"
+        "text": "Small surface scuffs and light scratches on the top tabletop"
       },
       {
         "id": "f4",
-        "kind": "measurement",
-        "text": "Width: about 20 in",
-        "estimate": true
-      },
-      {
-        "id": "f5",
-        "kind": "measurement",
-        "text": "Height: about 22 in",
-        "estimate": true
-      },
-      {
-        "id": "f6",
-        "kind": "feature",
-        "text": "Teak wood"
-      },
-      {
-        "id": "f7",
         "kind": "feature",
         "text": "Mid-century style"
       },
       {
-        "id": "f8",
+        "id": "f5",
         "kind": "feature",
-        "text": "Sturdy"
+        "text": "Lower storage shelf"
       },
       {
-        "id": "f9",
+        "id": "f6",
         "kind": "feature",
-        "text": "Lower shelf"
+        "text": "Sturdy construction"
       }
     ],
     "suggestedExtras": [
       {
-        "id": "wood-polish",
-        "label": "Wood polish"
+        "id": "furniture-polish",
+        "label": "Furniture polish"
       },
       {
         "id": "coasters",
@@ -163,9 +141,9 @@
     },
     "price": {
       "lowCents": 6000,
-      "highCents": 9500,
+      "highCents": 9000,
       "suggestedCents": 7500,
-      "basis": "Based on the original $160 cost and 'good' condition with minor scratches, the price reflects a 40-60% resale value typical for used mid-century teak furniture.",
+      "basis": "Based on the item being in good condition with minor surface scuffs and light scratches, valued at approximately 40-55% of the $160 original purchase price.",
       "ai": {
         "model": "Qwen/Qwen3.8-27B",
         "purpose": "Price estimate"
@@ -174,9 +152,9 @@
     "photoCredit": "Photos: The Living Room (Flickr), CC BY 2.0"
   },
   "stroller": {
-    "title": "Folding Stroller",
+    "title": "Folding Umbrella Stroller",
     "category": "stroller",
-    "description": "A navy blue and white striped stroller. According to the seller, it was used for one child and folds flat for transport in a car.",
+    "description": "A lightweight navy blue and white striped stroller. According to the seller, it was used for one child and folds flat for transport in a car.",
     "conditionGrade": "good",
     "facts": [
       {
@@ -187,7 +165,7 @@
       {
         "id": "f2",
         "kind": "condition",
-        "text": "Frame is straight and sturdy"
+        "text": "Frame is sturdy and upright"
       },
       {
         "id": "f3",
@@ -197,7 +175,7 @@
       {
         "id": "f4",
         "kind": "flaw",
-        "text": "Dirt and wear on the wheels"
+        "text": "Minor dirt/wear on the wheels from outdoor use"
       },
       {
         "id": "f5",
@@ -207,12 +185,12 @@
       {
         "id": "f6",
         "kind": "feature",
-        "text": "Used for one kid"
+        "text": "Navy blue and white striped fabric"
       },
       {
         "id": "f7",
-        "kind": "included",
-        "text": "Safety harness"
+        "kind": "feature",
+        "text": "White frame"
       }
     ],
     "suggestedExtras": [
@@ -221,8 +199,8 @@
         "label": "Cup holder"
       },
       {
-        "id": "rain-cover",
-        "label": "Rain cover"
+        "id": "stroller-organizer",
+        "label": "Stroller organizer"
       }
     ],
     "ai": {
@@ -233,7 +211,7 @@
       "lowCents": 8000,
       "highCents": 13000,
       "suggestedCents": 10000,
-      "basis": "Based on the item being in good condition with minor cosmetic wear (scuffs/dirt) and a history of single-child use, which typically supports a resale value of roughly 40-60% of the $220 original price.",
+      "basis": "Based on the item being in good condition with minor cosmetic wear, priced at roughly 40-60% of the $220 original cost for a person-to-person sale.",
       "ai": {
         "model": "Qwen/Qwen3.8-27B",
         "purpose": "Price estimate"

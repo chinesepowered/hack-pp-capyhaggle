@@ -9,6 +9,7 @@
 import { aiChat, AiUnavailableError, type ChatCompletionMessageParam, type ChatCompletionTool } from "../ai";
 import { formatUsd } from "../money";
 import { judgeMove, type RefereeInput, type RefereeListing } from "../referee";
+import { ReplayMissError } from "../tape";
 import { AGENT_LABEL, MAX_ROUNDS, OWNER_NAME, ROLE_OF } from "../types";
 import type { AgentName, AiTag, Deal, Listing, Offer, ProposedMove, TrailStep, Turn } from "../types";
 
@@ -300,7 +301,7 @@ export async function agentTurn(actor: AgentName, deal: Deal, listing: Listing, 
     try {
       res = await aiChat({ purpose: `negotiate.${actor}`, label: `Haggling for ${owner}`, messages, tools, toolChoice: "required", maxTokens: 700, temperature: 0.7, reasoning: "low" });
     } catch (err) {
-      if (err instanceof AiUnavailableError) {
+      if (err instanceof AiUnavailableError || err instanceof ReplayMissError) {
         step("Model unavailable", "blocked", "No model answered, so a scripted move was played.");
         break;
       }

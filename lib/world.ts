@@ -143,7 +143,7 @@ export interface Snapshot {
   deals: Deal[];
 }
 
-const PREFIXES = ["listings/", "listings-private/", "wants/", "wants-private/", "deals/", "claims/"];
+const PREFIXES = ["listings/", "listings-private/", "wants/", "wants-private/", "deals/", "claims/", "replay-listings/"];
 
 /** Captures the current seeded state so a reset can bring it back. Called by `pnpm seed`. */
 export async function writeSnapshot(deals: Deal[]): Promise<Snapshot> {

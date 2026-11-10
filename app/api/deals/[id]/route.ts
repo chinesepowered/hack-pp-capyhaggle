@@ -1,7 +1,7 @@
 import { refreshFromPayPal } from "@/lib/deals";
 import { json, roleFrom, route } from "@/lib/http";
 import { RuleError } from "@/lib/paypal/errors";
-import { getDeal, getListing } from "@/lib/repo";
+import { getDeal, getDealListing } from "@/lib/repo";
 import { withDeal } from "@/lib/runner";
 import { ReplayMissError } from "@/lib/tape";
 import { dealView } from "@/lib/views";
@@ -20,7 +20,7 @@ export const GET = route(async (req: Request, ctx: { params: Promise<{ id: strin
   const viewer = roleFrom(url.searchParams.get("as"));
   let deal = await getDeal(id);
   if (!deal) throw new RuleError("DEAL_NOT_FOUND", "That deal does not exist.", 404);
-  let listing = await getListing(deal.listingId);
+  let listing = await getDealListing(deal);
   if (!listing) throw new RuleError("LISTING_NOT_FOUND", "The listing for this deal is gone.", 404);
 
   const payoutPending = deal.status === "completed" && deal.payment.payoutItemStatus !== "SUCCESS";

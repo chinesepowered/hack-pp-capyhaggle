@@ -19,9 +19,9 @@ import { captureAuthorization, getAuthorization, getCapture, needsReauthorizatio
 import { createPayout, getPayout } from "./paypal/payouts";
 import { checkQrAgainstDeal, issueQr, verifyQr } from "./qr";
 import { dealWithinBothMandates, outcomeOf } from "./referee";
-import { claimWrite, getListingPrivate, releaseWrite, saveListing } from "./repo";
+import { claimWrite, getListingPrivate, releaseWrite, saveDealListing } from "./repo";
 import { AGENT_FOR, AGENT_LABEL, MAX_ROUNDS, OWNER_NAME } from "./types";
-import type { AgentName, Deal, Listing, Mode, Role, Turn, TurnActor } from "./types";
+import type { AgentName, Deal, Listing, Mode, Role, SignedMandate, Turn, TurnActor } from "./types";
 
 const now = () => new Date().toISOString();
 
@@ -50,13 +50,15 @@ export interface CreateDealInput {
   mode?: Mode;
   id?: string;
   seeded?: boolean;
+  /** Replay deals bring their own seller mandate (issued for the recorded floor). */
+  sellerMandate?: SignedMandate;
 }
 
 export async function createDeal(input: CreateDealInput): Promise<Deal> {
   const { listing } = input;
   if (listing.status !== "active") throw new RuleError("LISTING_NOT_AVAILABLE", "This item is already reserved or sold.");
-  const priv = await getListingPrivate(listing.id);
-  if (!priv) throw new RuleError("LISTING_HAS_NO_MANDATE", "The seller has not set a floor for this listing.", 500);
+  const sellerMandate = input.sellerMandate ?? (await getListingPrivate(listing.id))?.mandate;
+  if (!sellerMandate) throw new RuleError("LISTING_HAS_NO_MANDATE", "The seller has not set a floor for this listing.", 500);
   if (!Number.isInteger(input.ceilingCents) || input.ceilingCents < 100) throw new RuleError("BAD_CEILING", "Set a ceiling of at least $1.", 400);
   const known = new Set(listing.pickupWindows.map((w) => w.id));
   const windows = input.pickupWindowIds.filter((id) => known.has(id));
@@ -75,7 +77,7 @@ export async function createDeal(input: CreateDealInput): Promise<Deal> {
     updatedAt: created,
     status: "negotiating",
     paused: false,
-    mandates: { buyer: buyerMandate, seller: priv.mandate },
+    mandates: { buyer: buyerMandate, seller: sellerMandate },
     turns: [],
     round: 1,
     nextActor: "barley",
@@ -285,7 +287,7 @@ export async function authorizeHold(deal: Deal, listing: Listing): Promise<void>
       deal.payment.checkedAt = now();
       deal.status = "held";
       listing.status = "reserved";
-      await saveListing(listing);
+      await saveDealListing(deal, listing);
       pushTurn(deal, {
         actor: "system",
         kind: "system",
@@ -347,7 +349,7 @@ export async function completeHandoff(deal: Deal, listing: Listing, token: strin
     try {
       const auth = await getAuthorization(deal.payment.authorizationId!);
       deal.payment.authorizationStatus = auth.status;
-      if (auth.status === "CREATED" && needsReauthorization(auth)) {
+      if (auth.status === "CREATED" && needsReauthorization(auth) && currentContext().mode === "live") {
         // Past the 3-day honor period: reauthorize first so the capture is not declined.
         const fresh = await reauthorize(deal.payment.authorizationId!, requestId(deal, "reauthorize"));
         deal.payment.authorizationId = fresh.id || deal.payment.authorizationId;
@@ -406,7 +408,7 @@ export async function payoutSeller(deal: Deal, listing: Listing): Promise<void> 
       deal.payment.checkedAt = now();
       deal.status = "completed";
       listing.status = "sold";
-      await saveListing(listing);
+      await saveDealListing(deal, listing);
       pushTurn(deal, {
         actor: "system",
         kind: "system",
@@ -447,7 +449,7 @@ export async function voidHold(deal: Deal, listing: Listing, reason: string): Pr
     deal.status = "voided";
     deal.handoff = {};
     listing.status = "active";
-    await saveListing(listing);
+    await saveDealListing(deal, listing);
     pushTurn(deal, {
       actor: "system",
       kind: "system",
@@ -514,7 +516,7 @@ export async function refreshFromPayPal(deal: Deal, listing: Listing): Promise<b
         p.authorizedAt = order.authorization.createdAt ?? now();
         deal.status = "held";
         listing.status = "reserved";
-        await saveListing(listing);
+        await saveDealListing(deal, listing);
         pushTurn(deal, { actor: "system", kind: "system", message: `Payment held by PayPal: ${formatUsdExact(deal.agreed?.offer.priceCents ?? 0)}. Nothing has been sent to the seller yet.` });
       }
     } else if (deal.status === "held" && p.authorizationId) {
@@ -525,7 +527,7 @@ export async function refreshFromPayPal(deal: Deal, listing: Listing): Promise<b
         p.voidedAt = p.voidedAt ?? now();
         deal.status = "voided";
         listing.status = "active";
-        await saveListing(listing);
+        await saveDealListing(deal, listing);
         pushTurn(deal, { actor: "system", kind: "system", message: "PayPal reports the authorization was voided. The hold is released and nobody was charged." });
       } else if (auth.status === "CAPTURED" && !p.captureId) {
         // A capture whose answer we never received: settle it from what PayPal holds.

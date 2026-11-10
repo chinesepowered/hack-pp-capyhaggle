@@ -2,25 +2,13 @@ import { refreshFromPayPal } from "@/lib/deals";
 import { newContext, runInContext } from "@/lib/context";
 import { env } from "@/lib/env";
 import { json } from "@/lib/http";
-import { readTransmissionHeaders, verifyWebhookSignature, WEBHOOK_EVENT_TYPES, type WebhookEvent } from "@/lib/paypal/webhooks";
+import { dealIdFromEvent, readTransmissionHeaders, verifyWebhookSignature, WEBHOOK_EVENT_TYPES, type WebhookEvent } from "@/lib/paypal/webhooks";
 import { getDeal, keys } from "@/lib/repo";
 import { withDeal } from "@/lib/runner";
 import { store } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
-
-/**
- * Which deal an event belongs to. Orders carry the deal id as custom_id (it flows to the
- * authorization and the capture); payouts carry it in sender_item_id ("cvc-{dealId}-{salt}-item").
- */
-export function dealIdFromEvent(event: WebhookEvent): string | undefined {
-  const r = (event.resource ?? {}) as { custom_id?: string; payout_item?: { sender_item_id?: string }; sender_batch_id?: string };
-  if (typeof r.custom_id === "string" && r.custom_id) return r.custom_id;
-  const item = r.payout_item?.sender_item_id ?? r.sender_batch_id;
-  const m = typeof item === "string" ? item.match(/^cvc-(.+)-[a-z0-9]+-(?:item|payout)$/) : null;
-  return m?.[1];
-}
 
 /**
  * PayPal webhooks. Verified with POST /v1/notifications/verify-webhook-signature against the raw

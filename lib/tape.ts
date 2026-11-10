@@ -78,6 +78,7 @@ export function recordEntry(entry: TapeEntry): void {
 /** Replay keeps a little of the original latency so the flow still feels like the real thing. */
 export async function replayDelay(ms: number): Promise<void> {
   const factor = Number(process.env.CVC_REPLAY_SPEED ?? "0.35");
+  if (factor <= 0) return;
   const wait = Math.min(1500, Math.max(120, ms * factor));
   await new Promise((r) => setTimeout(r, wait));
 }

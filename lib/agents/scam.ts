@@ -5,6 +5,7 @@
  * do not know. A message is flagged when either one says so, and the flag records which.
  */
 import { aiChat, AiUnavailableError, extractJson } from "../ai";
+import { currentContext } from "../context";
 import { shortId } from "../ids";
 import type { AiTag, Role, ScamFlag } from "../types";
 
@@ -85,6 +86,9 @@ interface ModelOpinion {
 }
 
 async function modelOpinion(text: string, from: Role): Promise<ModelOpinion | undefined> {
+  // Replay has one recorded opinion, for one recorded message. Any other text gets the rules only.
+  const ctx = currentContext();
+  if (ctx.mode === "replay" && (ctx.tape as { scamExample?: string } | undefined)?.scamExample !== text) return undefined;
   try {
     const res = await aiChat({
       purpose: "scam.check",

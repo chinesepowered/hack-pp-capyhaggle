@@ -21,6 +21,18 @@ export interface WebhookEvent {
   resource?: Record<string, unknown>;
 }
 
+/**
+ * Which deal an event belongs to. Orders carry the deal id as custom_id (it flows to the
+ * authorization and the capture); payouts carry it in sender_item_id ("cvc-{dealId}-{salt}-item").
+ */
+export function dealIdFromEvent(event: WebhookEvent): string | undefined {
+  const r = (event.resource ?? {}) as { custom_id?: string; payout_item?: { sender_item_id?: string }; sender_batch_id?: string };
+  if (typeof r.custom_id === "string" && r.custom_id) return r.custom_id;
+  const item = r.payout_item?.sender_item_id ?? r.sender_batch_id;
+  const m = typeof item === "string" ? item.match(/^cvc-(.+)-[a-z0-9]+-(?:item|payout)$/) : null;
+  return m?.[1];
+}
+
 export interface TransmissionHeaders {
   authAlgo: string | null;
   certUrl: string | null;

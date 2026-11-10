@@ -25,7 +25,9 @@ function assertKey(key: string): void {
 
 /* ------------------------------------------------------------------ files */
 
-const DATA_DIR = process.env.CVC_DATA_DIR ?? path.join(process.cwd(), ".data");
+// On Vercel without a Blob store the only writable place is /tmp (per instance, not durable):
+// enough to click through the demo, but set BLOB_READ_WRITE_TOKEN for real persistence.
+const DATA_DIR = process.env.CVC_DATA_DIR ?? (process.env.VERCEL ? "/tmp/capy-data" : path.join(process.cwd(), ".data"));
 
 function fileFor(key: string): string {
   assertKey(key);

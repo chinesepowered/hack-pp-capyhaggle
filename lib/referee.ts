@@ -158,10 +158,13 @@ const UNIT_FAMILIES: [RegExp, string][] = [
   [/^(?:speed|speeds|gear|gears)$/, "speed"],
 ];
 
-/** Number-with-unit pairs in a text: "16-inch", "about 22 in", "3 years", "7 speed". */
+/**
+ * Number-with-unit pairs in a text: "16-inch", "about 22 in", "3 years", "7 speed".
+ * "6-year-old" describes a person, not the item, so it is not a measurement.
+ */
 export function measurements(text: string): string[] {
   const out: string[] = [];
-  const re = /(\d+(?:\.\d+)?)\s*-?\s*(inches|inch|in|"|centimeters?|centimetres?|cm|feet|foot|ft|pounds?|lbs?|kilograms?|kilos?|kg|years?|yrs?|months?|mos?|speeds?|gears?)(?![a-z])/gi;
+  const re = /(\d+(?:\.\d+)?)\s*-?\s*(inches|inch|in|"|centimeters?|centimetres?|cm|feet|foot|ft|pounds?|lbs?|kilograms?|kilos?|kg|years?|yrs?|months?|mos?|speeds?|gears?)(?![a-z])(?!-old)/gi;
   for (const m of text.toLowerCase().matchAll(re)) {
     const family = UNIT_FAMILIES.find(([r]) => r.test(m[2]))?.[1];
     if (family) out.push(`${parseFloat(m[1])}${family}`);

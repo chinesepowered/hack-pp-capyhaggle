@@ -1,0 +1,1293 @@
+{
+ "scenario": "kids-bike",
+ "recordedAt": "2026-11-10T15:49:29.223Z",
+ "note": "Recorded from a real run against the PayPal sandbox and W&B Inference by scripts/record-replay.ts. Replay mode answers from these responses instead of calling out.",
+ "listing": {
+  "id": "lst_bike",
+  "sellerName": "Theo",
+  "title": "Green Kids Bike with Training Wheels",
+  "category": "kids bike",
+  "description": "A green children's bicycle with a blue seat and red accents. It includes a rear cargo rack and removable training wheels.",
+  "conditionGrade": "good",
+  "facts": [
+   {
+    "id": "f1",
+    "kind": "condition",
+    "text": "Paint on the frame is bright"
+   },
+   {
+    "id": "f2",
+    "kind": "condition",
+    "text": "Tires appear to have plenty of tread"
+   },
+   {
+    "id": "f3",
+    "kind": "flaw",
+    "text": "Scuffs and paint chips on the red rear fender"
+   },
+   {
+    "id": "f4",
+    "kind": "flaw",
+    "text": "Surface rust on the chain and sprocket"
+   },
+   {
+    "id": "f5",
+    "kind": "measurement",
+    "text": "Wheel size: about 16 in",
+    "estimate": true
+   },
+   {
+    "id": "f6",
+    "kind": "feature",
+    "text": "Bought new for $190 two summers ago"
+   },
+   {
+    "id": "f7",
+    "kind": "feature",
+    "text": "Fits around age 5 to 7"
+   },
+   {
+    "id": "f8",
+    "kind": "feature",
+    "text": "Training wheels come off"
+   },
+   {
+    "id": "f9",
+    "kind": "included",
+    "text": "Training wheels"
+   },
+   {
+    "id": "f10",
+    "kind": "included",
+    "text": "Rear cargo rack"
+   },
+   {
+    "id": "f11",
+    "kind": "included",
+    "text": "Front reflector"
+   }
+  ],
+  "extras": [
+   {
+    "id": "helmet",
+    "label": "Kid's helmet"
+   },
+   {
+    "id": "lock",
+    "label": "Cable lock"
+   }
+  ],
+  "photos": [
+   "/items/bike-1.jpg",
+   "/items/bike-2.jpg"
+  ],
+  "photoCredit": "Photos: Donald Trung Quoc Don, Wikimedia Commons, CC BY-SA 4.0",
+  "askingCents": 9500,
+  "suggestion": {
+   "lowCents": 6000,
+   "highCents": 9000,
+   "basis": "Based on the item being two years old with visible wear like rust and scuffs, it falls below the typical 40-60% resale value of the original $190 price.",
+   "ai": {
+    "model": "Qwen/Qwen3.8-27B",
+    "purpose": "Price estimate",
+    "replayed": true
+   }
+  },
+  "area": "Mission District",
+  "pickupWindows": [
+   {
+    "id": "sat-am",
+    "label": "Sat, Nov 14, 10am to 12pm",
+    "startsAt": "2026-11-14T10:00:00.000Z",
+    "endsAt": "2026-11-14T12:00:00.000Z"
+   },
+   {
+    "id": "sat-pm",
+    "label": "Sat, Nov 14, 2pm to 5pm",
+    "startsAt": "2026-11-14T14:00:00.000Z",
+    "endsAt": "2026-11-14T17:00:00.000Z"
+   },
+   {
+    "id": "sun-mid",
+    "label": "Sun, Nov 15, 11am to 2pm",
+    "startsAt": "2026-11-15T11:00:00.000Z",
+    "endsAt": "2026-11-15T14:00:00.000Z"
+   }
+  ],
+  "prefs": {
+   "bundlesOk": true,
+   "noCash": true
+  },
+  "status": "active",
+  "ai": {
+   "model": "google/gemma-4-31B-it",
+   "purpose": "Listing written from photos",
+   "replayed": true
+  },
+  "createdAt": "2026-11-09T03:46:29.330Z",
+  "seeded": true
+ },
+ "floorCents": 7500,
+ "ceilingCents": 9000,
+ "pickupWindowIds": [
+  "sat-am",
+  "sun-mid"
+ ],
+ "wantText": "A kid's bike for a 6-year-old, under $90, this weekend, near the Mission.",
+ "scamExample": "Skip the app. Pay a $20 deposit by gift card and I'll hold it for you.",
+ "entries": [
+  {
+   "key": "ai:listing.vision.bike#0",
+   "kind": "ai",
+   "model": "google/gemma-4-31B-it",
+   "ms": 5335,
+   "body": {
+    "message": {
+     "content": "```json\n{\n  \"title\": \"Green Kids Bike with Training Wheels\",\n  \"category\": \"kids bike\",\n  \"condition_grade\": \"good\",\n  \"description\": \"A green children's bicycle with a blue seat and red accents. It includes a rear cargo rack and removable training wheels.\",\n  \"condition_notes\": [\n    \"Paint on the frame is bright\",\n    \"Tires appear to have plenty of tread\"\n  ],\n  \"flaws\": [\n    \"Scuffs and paint chips on the red rear fender\",\n    \"Surface rust on the chain and sprocket\"\n  ],\n  \"measurements\": [\n    {\n      \"label\": \"Wheel size\",\n      \"value\": \"about 16 in\"\n    }\n  ],\n  \"features\": [\n    \"Bought new for $190 two summers ago\",\n    \"Fits around age 5 to 7\",\n    \"Training wheels come off\"\n  ],\n  \"included\": [\n    \"Training wheels\",\n    \"Rear cargo rack\",\n    \"Front reflector\"\n  ],\n  \"possible_extras\": [\n    \"Bike helmet\",\n    \"Bike lock\"\n  ]\n}\n```",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:listing.price.bike#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 968,
+   "body": {
+    "message": {
+     "content": "{\n\"low\": 60,\n\"high\": 90,\n\"suggested\": 75,\n\"basis\": \"Based on the item being two years old with visible wear like rust and scuffs, it falls below the typical 40-60% resale value of the original $190 price.\"\n}",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:listing.vision.table#0",
+   "kind": "ai",
+   "model": "google/gemma-4-31B-it",
+   "ms": 2645,
+   "body": {
+    "message": {
+     "content": "```json\n{\n  \"title\": \"Teak side table\",\n  \"category\": \"furniture\",\n  \"condition_grade\": \"good\",\n  \"description\": \"A mid-century style side table with a lower storage shelf. The piece is made of teak and described by the seller as sturdy.\",\n  \"condition_notes\": [\"Wood finish has a consistent glow\", \"Structure appears solid and level\"],\n  \"flaws\": [\"Small surface scuffs and light scratches on the top tabletop\"],\n  \"measurements\": [],\n  \"features\": [\"Mid-century style\", \"Lower storage shelf\", \"Sturdy construction\"],\n  \"included\": [],\n  \"possible_extras\": [\"Furniture polish\", \"Coasters\"]\n}\n```",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:listing.price.table#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 664,
+   "body": {
+    "message": {
+     "content": "{\n  \"low\": 60,\n  \"high\": 90,\n  \"suggested\": 75,\n  \"basis\": \"Based on the item being in good condition with minor surface scuffs and light scratches, valued at approximately 40-55% of the $160 original purchase price.\"\n}",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:listing.vision.stroller#0",
+   "kind": "ai",
+   "model": "google/gemma-4-31B-it",
+   "ms": 2334,
+   "body": {
+    "message": {
+     "content": "```json\n{\n  \"title\": \"Folding Umbrella Stroller\",\n  \"category\": \"stroller\",\n  \"condition_grade\": \"good\",\n  \"description\": \"A lightweight navy blue and white striped stroller. According to the seller, it was used for one child and folds flat for transport in a car.\",\n  \"condition_notes\": [\n    \"Fabric appears clean and intact\",\n    \"Frame is sturdy and upright\"\n  ],\n  \"flaws\": [\n    \"Scuff marks on the white plastic front footrest\",\n    \"Minor dirt/wear on the wheels from outdoor use\"\n  ],\n  \"measurements\": [],\n  \"features\": [\n    \"Folds flat for the car\",\n    \"Navy blue and white striped fabric\",\n    \"White frame\"\n  ],\n  \"included\": [],\n  \"possible_extras\": [\n    \"Cup holder\",\n    \"Stroller organizer\"\n  ]\n}\n```",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:listing.price.stroller#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 1458,
+   "body": {
+    "message": {
+     "content": "{\n\"low\": 80,\n\"high\": 130,\n\"suggested\": 100,\n\"basis\": \"Based on the item being in good condition with minor cosmetic wear, priced at roughly 40-60% of the $220 original cost for a person-to-person sale.\"\n}",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:want.parse#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 634,
+   "body": {
+    "message": {
+     "content": "{\n  \"category\": \"kids bike\",\n  \"keywords\": [\n    \"kids bike\",\n    \"6 year old\",\n    \"under 90\",\n    \"mission\",\n    \"this weekend\"\n  ],\n  \"when\": \"this weekend\",\n  \"area\": \"Mission\",\n  \"budget_usd\": 90\n}",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:negotiate.barley#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 2848,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-bddde74b-d196-444f-9301-ab88001dc557",
+       "type": "function",
+       "function": {
+        "name": "make_offer",
+        "arguments": "{\"price_usd\":70,\"pickup_window\":\"sat-am\",\"extras\":[\"helmet\"],\"message\":\"Hi there, I noticed the chain and sprocket have some surface rust and the rear fender has a few paint chips, so I was thinking $70 with the helmet thrown in. I can pick up Saturday morning if that works.\",\"note_to_owner\":\"Opening at 70% of asking, backed by the rust and fender scuffs noted in the listing. Asked for the helmet since it adds real value for Maya.\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": "Let me think about this carefully.\n\nThe asking price is $95. My mandate is I can never offer more than $90.\n\nStrategy says: Open clearly below asking but not insultingly low (roughly 72 to 78 percent of asking).\n\n72% of $95 = $68.40\n78% of $95 = $74.10\n\nSo I should open around $68-$74. Let me pick something in that range. $70 feels right - it's a clean number, clearly below asking, and not insultingly low.\n\nI should back it up with the flaws in the listing: surface rust on the chain and sprocket, scuffs and paint chips on the red rear fender. These are real issues that reduce value.\n\nI'll ask for the helmet as an extra since Maya would benefit from it.\n\nPickup window: Maya can make sat-am or sun-mid. I'll go with sat-am.\n\nLet me craft the message: friendly, in character as a practical capybara, 1-2 short sentences.\n"
+    }
+   }
+  },
+  {
+   "key": "ai:negotiate.biscuit#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 3209,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-470f3a79-728b-4f92-9587-f3ffb252fd41",
+       "type": "function",
+       "function": {
+        "name": "make_offer",
+        "arguments": "{\"price_usd\": 88, \"pickup_window\": \"sat-am\", \"extras\": [\"helmet\"], \"message\": \"Thanks for the offer, Barley! I can see the rust and chips, but the tires have great tread and the paint is still bright. I could do $88 with the helmet included, Saturday morning works for me.\", \"note_to_owner\": \"Starting at $88, just under asking, with the helmet as a sweetener. Barley opened at $70 which is below my $75 floor, so I need to hold firm and come down slowly.\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": "Let me analyze this situation:\n\n- Barley offered $70 with the helmet, pickup sat-am\n- My floor is $75 (secret)\n- This is round 1, so I should keep haggling and only accept if within $3 of my last offer\n- I haven't made an offer yet, so I need to make my first offer\n- Strategy says: Start at or just under the asking price, then come down in shrinking steps\n\nThe asking price is $95. Barley offered $70. I should start high and come down. Let me start at $90 or $88 - just under the asking price.\n\nActually, let me think about this more carefully. Barley offered $70. My floor is $75. The gap between $70 and $75 is only $5. I need to be strategic here.\n\nIf I start at $90, and Barley counters, I'll need to come down. Let me start at $88 - just under asking. Then I can come down in shrinking steps.\n\nLet me make my first offer at $88, with the helmet included as a sweetener, and sat-am pickup since that works for Theo.\n\nActually, I should include the helmet as a sweetener since Barley already asked for it. Let me offer $88 with the helmet included.\n"
+    }
+   }
+  },
+  {
+   "key": "ai:negotiate.barley#1",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 3422,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-d7aa892c-afd3-4fd9-b5d5-062e7731e013",
+       "type": "function",
+       "function": {
+        "name": "make_offer",
+        "arguments": "{\"price_usd\": 77, \"pickup_window\": \"sat-am\", \"extras\": [\"helmet\"], \"message\": \"Appreciate the counter. The rust on the chain and the paint chips on the fender do mean some upkeep, and it's been two summers, so I'll come up to $77 with the helmet. Saturday morning still works for me.\", \"note_to_owner\": \"Biscuit countered at $88 which is within my limit but I'm in the haggle phase, so I'm stepping up to $77 to keep momentum without giving too much too fast.\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": "Let me analyze the situation:\n\n- My previous offer: $70\n- Biscuit's offer: $88\n- Gap between us: $18\n- This is round 2 of 8\n\nStrategy for rounds 1-3: keep haggling, only accept if seller's offer is within $3 of my last offer. $88 is $18 away from my $70, so I should not accept.\n\nI need to counter with an offer that closes about a third to a half of the gap between my last offer ($70) and the seller's offer ($88).\n\nGap = $88 - $70 = $18\nA third of the gap = $6, so I'd go to $76\nA half of the gap = $9, so I'd go to $79\n\nI'll aim for somewhere around $76-78. Let me go with $77. That's a reasonable step up from $70, closing about 40% of the gap.\n\nI should back it up with listing facts. The surface rust on chain and sprocket, and the scuffs/paint chips on the red rear fender are valid points. Also the bike is two summers old.\n\nMy limit is $90, so $77 is well within bounds. I'll keep the helmet request in.\n"
+    }
+   }
+  },
+  {
+   "key": "ai:negotiate.biscuit#1",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 3504,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-48ec19b2-a9ad-4570-9cfa-c71d82eb1c7d",
+       "type": "function",
+       "function": {
+        "name": "make_offer",
+        "arguments": "{\"price_usd\": 84, \"pickup_window\": \"sat-am\", \"extras\": [\"helmet\", \"lock\"], \"message\": \"I can meet you a bit closer, Barley. The tires still have plenty of tread and the paint is bright, so I'll do $84 with the helmet and a cable lock to keep it safe. Saturday morning still works great.\", \"note_to_owner\": \"Barley is at $77 and I'm at $88, so I closed a third of the gap and added the lock as a sweetener instead of dropping further.\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": "Let me analyze the situation:\n\n- My last offer: $88\n- Barley's offer: $77\n- Gap between us: $11\n- I'm in round 2 of 8\n- My secret floor: $75 (never reveal)\n- Strategy: Come down in shrinking steps, close about a third of the gap between my last offer and the buyer's offer.\n\nGap is $11. A third of that is about $3.67, so I should come down by about $3-4 from my last offer of $88.\n\n$88 - $4 = $84. That seems reasonable.\n\nI should defend with listing facts. The tires have plenty of tread, paint is bright, it was bought new for $190 two summers ago, it fits ages 5-7, training wheels come off, rear cargo rack, front reflector.\n\nI'll offer $84 with the helmet, and maybe mention the lock as a sweetener to sweeten the deal without dropping price further.\n\nWait, let me reconsider. The strategy says \"close about a third of the gap between your last offer and the buyer's offer.\" The gap is $88 - $77 = $11. A third is ~$3.67. So I should move from $88 down by about $4, landing at $84.\n\nI'll include the helmet and maybe offer the lock as a sweetener to make it more attractive without cutting price further.\n"
+    }
+   }
+  },
+  {
+   "key": "ai:negotiate.barley#2",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 3693,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-5ac6d2d3-0198-4109-a6b9-e26e24ccf09c",
+       "type": "function",
+       "function": {
+        "name": "make_offer",
+        "arguments": "{\"price_usd\":80,\"pickup_window\":\"sat-am\",\"extras\":[\"helmet\",\"lock\"],\"message\":\"That's fair, the lock is a nice touch. The rust on the chain and the age of it still mean some work ahead, so I'll say $80 with both the helmet and lock. Saturday morning still good for me.\",\"note_to_owner\":\"Closing the gap by about half. Biscuit added the lock which is a bonus. Still $10 under my limit, so I have room if needed.\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": "Let me analyze the situation:\n\n- My previous offer: $77\n- Biscuit's offer on the table: $84 (with helmet and cable lock)\n- My limit: $90 (secret)\n- This is round 3 of 8\n\nStrategy for rounds 1-3: Keep haggling; only accept if the seller's offer is within $3 of my own last offer.\n\nThe gap between my last offer ($77) and Biscuit's offer ($84) is $7. That's more than $3, so I should not accept yet.\n\nI need to make a new offer that:\n- Is at least $77 (can't go backwards)\n- Closes about 1/3 to 1/2 of the gap between my last offer ($77) and the seller's offer ($84)\n- Gap is $7, so 1/3 to 1/2 of that is about $2.33 to $3.50\n- So my new offer should be around $79 to $81\n\nLet me go with $80. That's a reasonable step up, closes about half the gap.\n\nI should back it with item facts from the listing. The rust on chain/sprocket and paint chips are still valid points. The bike was bought two summers ago, so it's been used for a while.\n\nPickup: sat-am works for Maya.\nExtras: I'll keep asking for the helmet. The cable lock is a nice bonus Biscuit added - I could acknowledge it.\n\nLet me craft the message: 1-2 short sentences, in character, friendly.\n"
+    }
+   }
+  },
+  {
+   "key": "ai:negotiate.biscuit#2",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 4310,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-e6c3861b-3d29-429e-b30d-94555a181980",
+       "type": "function",
+       "function": {
+        "name": "make_offer",
+        "arguments": "{\"price_usd\":82,\"pickup_window\":\"sat-am\",\"extras\":[\"helmet\",\"lock\"],\"message\":\"Almost there, Barley! I can do $82 with the helmet and lock, Saturday morning. That bike is ready to ride and the bright paint will make it stand out on the block.\",\"note_to_owner\":\"Round 3, gap is $4 so I'm holding above the $3-accept threshold. Dropping to $82 to keep pressure on while staying well above my floor.\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": "Let me analyze the situation:\n\n- Barley offered $80\n- My last offer was $84\n- This is round 3 of 8\n- My floor is $75 (secret)\n- The gap between my last offer ($84) and Barley's offer ($80) is $4\n\nStrategy rules:\n- In rounds 1 to 3, keep haggling: only accept if the buyer's offer is within $3 of my own last offer.\n- The gap is $4, which is more than $3, so I should not accept yet.\n- I should counter with a shrinking step. The gap between $84 and $80 is $4. I should close about a third of that gap, so about $1-2 down from $84.\n\nI'll offer $82. That's a $2 drop from $84, which is about half the gap (a bit more than a third, but reasonable). Actually, a third of $4 is about $1.33, so I could do $83. Let me go with $83 to keep the shrinking steps going.\n\nWait, let me reconsider. My offers have been: $88, $84, so drops of $4. Now I should drop less. A drop of $1 or $2 makes sense. I'll go with $82 - that's a $2 drop, showing I'm moving but still holding firm.\n\nActually, the strategy says \"close about a third of the gap between your last offer and the buyer's offer.\" The gap is $84 - $80 = $4. A third of that is about $1.33. So I should offer $84 - $1 = $83 or $84 - $2 = $82. Let me go with $82 to be a bit more generous and keep things moving.\n\nI'll offer $82 with both extras (helmet and cable lock), Saturday morning.\n"
+    }
+   }
+  },
+  {
+   "key": "ai:negotiate.barley#3",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 1980,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-4773ccf3-a075-472f-9189-bc7c2c9dd607",
+       "type": "function",
+       "function": {
+        "name": "accept_offer",
+        "arguments": "{\"message\": \"That works for me, Biscuit. $82 with the helmet and lock, Saturday morning. Thanks for meeting in the middle.\", \"note_to_owner\": \"Biscuit came down to $82, only $2 above my last offer, and it includes both the helmet and lock. Well within our limit and a fair price for the condition.\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": "Let me analyze the situation:\n\n- My previous offer: $80\n- Biscuit's offer: $82\n- Gap: $2\n- My limit: $90 (secret)\n- Round 4 of 8\n\nStrategy rules for round 4: \"From round 4 on, accept an offer inside your limit when the gap to your last offer is $4 or less.\"\n\nThe gap between my last offer ($80) and Biscuit's offer ($82) is $2, which is ≤ $4. And $82 is within my $90 limit.\n\nSo I should accept this offer. It's a good deal: $82 for the bike with helmet and cable lock, Saturday morning pickup.\n"
+    }
+   }
+  },
+  {
+   "key": "ai:deal.summary#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 1202,
+   "body": {
+    "message": {
+     "content": "{\n\"buyer\": \"Barley haggled down from your $95 ask to $82 over four rounds, noting the rust and paint chips. You will pick up the bike with a helmet and cable lock on Saturday, Nov 14 between 10am and 12pm in the Mission District.\",\n\"seller\": \"Biscuit negotiated the price from $95 to $82 over four rounds, standing firm on the bike's bright paint and good tires. You will receive $77.40 after the $4.60 fee when Maya picks up the bike with the helmet and lock on Saturday, Nov 14 between 10am and 12pm.\"\n}",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "ai:settle.hold#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 474,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-107431f8-320d-4786-aae1-770b550b6674",
+       "type": "function",
+       "function": {
+        "name": "create_held_order",
+        "arguments": "{\"amount_usd\": 82, \"listing_id\": \"lst_bike\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "paypal:orders.create#0",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "f493643fd6f5e",
+   "method": "POST",
+   "path": "/v2/checkout/orders",
+   "ms": 1558,
+   "body": {
+    "id": "4K575629SR312272D",
+    "paymentSource": {
+     "paypal": {}
+    },
+    "intent": "AUTHORIZE",
+    "purchaseUnits": [
+     {
+      "referenceId": "dl_record",
+      "amount": {
+       "currencyCode": "USD",
+       "value": "82.00",
+       "breakdown": {
+        "itemTotal": {
+         "currencyCode": "USD",
+         "value": "82.00"
+        }
+       }
+      },
+      "payee": {
+       "emailAddress": "sandbox-merchant@example.com",
+       "merchantId": "L7E7FN3M2K55G"
+      },
+      "description": "Green Kids Bike with Training Wheels, local pickup Sat, Nov 14, 10am to 12pm",
+      "customId": "dl_record",
+      "items": [
+       {
+        "name": "Green Kids Bike with Training Wheels",
+        "unitAmount": {
+         "currencyCode": "USD",
+         "value": "82.00"
+        },
+        "quantity": "1",
+        "category": "PHYSICAL_GOODS"
+       }
+      ]
+     }
+    ],
+    "status": "PAYER_ACTION_REQUIRED",
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4K575629SR312272D",
+      "rel": "self",
+      "method": "GET"
+     },
+     {
+      "href": "https://www.sandbox.paypal.com/checkoutnow?token=4K575629SR312272D",
+      "rel": "payer-action",
+      "method": "GET"
+     }
+    ]
+   }
+  },
+  {
+   "key": "paypal:orders.authorize#0",
+   "kind": "paypal",
+   "status": 201,
+   "debugId": "f17957502359d",
+   "method": "POST",
+   "path": "/v2/checkout/orders/4K575629SR312272D/authorize",
+   "ms": 2158,
+   "body": {
+    "createTime": "2026-11-10T15:48:56Z",
+    "updateTime": "2026-11-10T15:49:05Z",
+    "id": "4K575629SR312272D",
+    "paymentSource": {
+     "paypal": {
+      "emailAddress": "sandbox-buyer@example.com",
+      "accountId": "SHB5GFLEDVTY6",
+      "accountStatus": "VERIFIED",
+      "name": {
+       "givenName": "Test",
+       "surname": "Buyer"
+      },
+      "address": {
+       "countryCode": "US"
+      }
+     }
+    },
+    "intent": "AUTHORIZE",
+    "payer": {
+     "emailAddress": "sandbox-buyer@example.com",
+     "payerId": "SHB5GFLEDVTY6",
+     "name": {
+      "givenName": "Test",
+      "surname": "Buyer"
+     },
+     "address": {
+      "countryCode": "US"
+     }
+    },
+    "purchaseUnits": [
+     {
+      "referenceId": "dl_record",
+      "amount": {
+       "currencyCode": "USD",
+       "value": "82.00",
+       "breakdown": {
+        "itemTotal": {
+         "currencyCode": "USD",
+         "value": "82.00"
+        },
+        "shipping": {
+         "currencyCode": "USD",
+         "value": "0.00"
+        },
+        "handling": {
+         "currencyCode": "USD",
+         "value": "0.00"
+        },
+        "insurance": {
+         "currencyCode": "USD",
+         "value": "0.00"
+        },
+        "shippingDiscount": {
+         "currencyCode": "USD",
+         "value": "0.00"
+        }
+       }
+      },
+      "payee": {
+       "emailAddress": "sandbox-merchant@example.com",
+       "merchantId": "L7E7FN3M2K55G"
+      },
+      "description": "Green Kids Bike with Training Wheels, local pickup Sat, Nov 14, 10am to 12pm",
+      "customId": "dl_record",
+      "items": [
+       {
+        "name": "Green Kids Bike with Training Wheels",
+        "unitAmount": {
+         "currencyCode": "USD",
+         "value": "82.00"
+        },
+        "tax": {
+         "currencyCode": "USD",
+         "value": "0.00"
+        },
+        "quantity": "1",
+        "category": "PHYSICAL_GOODS"
+       }
+      ],
+      "payments": {
+       "authorizations": [
+        {
+         "status": "CREATED",
+         "id": "3ES2584436624942U",
+         "amount": {
+          "currencyCode": "USD",
+          "value": "82.00"
+         },
+         "customId": "dl_record",
+         "sellerProtection": {
+          "status": "ELIGIBLE",
+          "disputeCategories": [
+           "ITEM_NOT_RECEIVED",
+           "UNAUTHORIZED_TRANSACTION"
+          ]
+         },
+         "expirationTime": "2026-12-09T15:49:05Z",
+         "links": [
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U",
+           "rel": "self",
+           "method": "GET"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/capture",
+           "rel": "capture",
+           "method": "POST"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/void",
+           "rel": "void",
+           "method": "POST"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/reauthorize",
+           "rel": "reauthorize",
+           "method": "POST"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4K575629SR312272D",
+           "rel": "up",
+           "method": "GET"
+          }
+         ],
+         "createTime": "2026-11-10T15:49:05Z",
+         "updateTime": "2026-11-10T15:49:05Z"
+        }
+       ]
+      }
+     }
+    ],
+    "status": "COMPLETED",
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4K575629SR312272D",
+      "rel": "self",
+      "method": "GET"
+     }
+    ]
+   }
+  },
+  {
+   "key": "ai:settle.verify#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 673,
+   "body": {
+    "message": {
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "call-16d4cba7-1e10-41a2-a0ec-3626f4263b5b",
+       "type": "function",
+       "function": {
+        "name": "get_order",
+        "arguments": "{\"id\": \"4K575629SR312272D\"}"
+       }
+      }
+     ],
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "paypal:toolkit.get_order#0",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "1f7bd0ba4cb5b",
+   "method": "GET",
+   "path": "/v2/checkout/orders/4K575629SR312272D",
+   "ms": 963,
+   "body": {
+    "id": "4K575629SR312272D",
+    "intent": "AUTHORIZE",
+    "status": "COMPLETED",
+    "payment_source": {
+     "paypal": {
+      "email_address": "sandbox-buyer@example.com",
+      "account_id": "SHB5GFLEDVTY6",
+      "account_status": "VERIFIED",
+      "name": {
+       "given_name": "Test",
+       "surname": "Buyer"
+      },
+      "address": {
+       "country_code": "US"
+      }
+     }
+    },
+    "purchase_units": [
+     {
+      "reference_id": "dl_record",
+      "amount": {
+       "currency_code": "USD",
+       "value": "82.00",
+       "breakdown": {
+        "item_total": {
+         "currency_code": "USD",
+         "value": "82.00"
+        }
+       }
+      },
+      "payee": {
+       "email_address": "sandbox-merchant@example.com",
+       "merchant_id": "L7E7FN3M2K55G",
+       "display_data": {
+        "brand_name": "Capy vs Capy"
+       }
+      },
+      "description": "Green Kids Bike with Training Wheels, local pickup Sat, Nov 14, 10am to 12pm",
+      "custom_id": "dl_record",
+      "items": [
+       {
+        "name": "Green Kids Bike with Training Wheels",
+        "unit_amount": {
+         "currency_code": "USD",
+         "value": "82.00"
+        },
+        "quantity": "1",
+        "category": "PHYSICAL_GOODS"
+       }
+      ],
+      "payments": {
+       "authorizations": [
+        {
+         "status": "CREATED",
+         "id": "3ES2584436624942U",
+         "amount": {
+          "currency_code": "USD",
+          "value": "82.00"
+         },
+         "custom_id": "dl_record",
+         "seller_protection": {
+          "status": "ELIGIBLE",
+          "dispute_categories": [
+           "ITEM_NOT_RECEIVED",
+           "UNAUTHORIZED_TRANSACTION"
+          ]
+         },
+         "expiration_time": "2026-12-09T15:49:05Z",
+         "links": [
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U",
+           "rel": "self",
+           "method": "GET"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/capture",
+           "rel": "capture",
+           "method": "POST"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/void",
+           "rel": "void",
+           "method": "POST"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/reauthorize",
+           "rel": "reauthorize",
+           "method": "POST"
+          },
+          {
+           "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4K575629SR312272D",
+           "rel": "up",
+           "method": "GET"
+          }
+         ],
+         "create_time": "2026-11-10T15:49:05Z",
+         "update_time": "2026-11-10T15:49:05Z"
+        }
+       ]
+      }
+     }
+    ],
+    "payer": {
+     "name": {
+      "given_name": "Test",
+      "surname": "Buyer"
+     },
+     "email_address": "sandbox-buyer@example.com",
+     "payer_id": "SHB5GFLEDVTY6",
+     "address": {
+      "country_code": "US"
+     }
+    },
+    "create_time": "2026-11-10T15:49:05Z",
+    "update_time": "2026-11-10T15:49:05Z",
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4K575629SR312272D",
+      "rel": "self",
+      "method": "GET"
+     }
+    ]
+   }
+  },
+  {
+   "key": "ai:scam.check#0",
+   "kind": "ai",
+   "model": "Qwen/Qwen3.8-27B",
+   "ms": 602,
+   "body": {
+    "message": {
+     "content": "{\"scam\": true, \"pattern\": \"gift cards and off-app payment\", \"reason\": \"The seller is requesting payment via gift cards and explicitly asking to bypass the secure app process.\"}",
+     "role": "assistant",
+     "reasoning": null
+    }
+   }
+  },
+  {
+   "key": "paypal:authorizations.get#0",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "f444800ee6fea",
+   "method": "GET",
+   "path": "/v2/payments/authorizations/3ES2584436624942U",
+   "ms": 604,
+   "body": {
+    "status": "CREATED",
+    "id": "3ES2584436624942U",
+    "amount": {
+     "currencyCode": "USD",
+     "value": "82.00"
+    },
+    "customId": "dl_record",
+    "sellerProtection": {
+     "status": "ELIGIBLE",
+     "disputeCategories": [
+      "ITEM_NOT_RECEIVED",
+      "UNAUTHORIZED_TRANSACTION"
+     ]
+    },
+    "expirationTime": "2026-12-09T15:49:05Z",
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U",
+      "rel": "self",
+      "method": "GET"
+     },
+     {
+      "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/capture",
+      "rel": "capture",
+      "method": "POST"
+     },
+     {
+      "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/void",
+      "rel": "void",
+      "method": "POST"
+     },
+     {
+      "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U/reauthorize",
+      "rel": "reauthorize",
+      "method": "POST"
+     },
+     {
+      "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4K575629SR312272D",
+      "rel": "up",
+      "method": "GET"
+     }
+    ],
+    "createTime": "2026-11-10T15:49:05Z",
+    "updateTime": "2026-11-10T15:49:05Z",
+    "supplementaryData": {
+     "relatedIds": {
+      "orderId": "4K575629SR312272D"
+     }
+    },
+    "payee": {
+     "emailAddress": "sandbox-merchant@example.com",
+     "merchantId": "L7E7FN3M2K55G"
+    }
+   }
+  },
+  {
+   "key": "paypal:authorizations.capture#0",
+   "kind": "paypal",
+   "status": 201,
+   "debugId": "f472944830815",
+   "method": "POST",
+   "path": "/v2/payments/authorizations/3ES2584436624942U/capture",
+   "ms": 2605,
+   "body": {
+    "status": "COMPLETED",
+    "id": "60P59788WC5529456",
+    "amount": {
+     "currencyCode": "USD",
+     "value": "82.00"
+    },
+    "invoiceId": "dl_record-4cafwu",
+    "customId": "dl_record",
+    "sellerProtection": {
+     "status": "ELIGIBLE",
+     "disputeCategories": [
+      "ITEM_NOT_RECEIVED",
+      "UNAUTHORIZED_TRANSACTION"
+     ]
+    },
+    "finalCapture": true,
+    "sellerReceivableBreakdown": {
+     "grossAmount": {
+      "currencyCode": "USD",
+      "value": "82.00"
+     },
+     "paypalFee": {
+      "currencyCode": "USD",
+      "value": "3.35"
+     },
+     "netAmount": {
+      "currencyCode": "USD",
+      "value": "78.65"
+     },
+     "exchangeRate": {}
+    },
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v2/payments/captures/60P59788WC5529456",
+      "rel": "self",
+      "method": "GET"
+     },
+     {
+      "href": "https://api.sandbox.paypal.com/v2/payments/captures/60P59788WC5529456/refund",
+      "rel": "refund",
+      "method": "POST"
+     },
+     {
+      "href": "https://api.sandbox.paypal.com/v2/payments/authorizations/3ES2584436624942U",
+      "rel": "up",
+      "method": "GET"
+     }
+    ],
+    "createTime": "2026-11-10T15:49:11Z",
+    "updateTime": "2026-11-10T15:49:11Z"
+   }
+  },
+  {
+   "key": "paypal:payouts.create#0",
+   "kind": "paypal",
+   "status": 201,
+   "debugId": "ca58634b1ea7a",
+   "method": "POST",
+   "path": "/v1/payments/payouts",
+   "ms": 406,
+   "body": {
+    "batch_header": {
+     "payout_batch_id": "37URZC4DWGSKL",
+     "batch_status": "PENDING",
+     "sender_batch_header": {
+      "sender_batch_id": "cvc-dl_record-4cafwu-payout",
+      "email_subject": "Your Capy vs Capy sale was paid out",
+      "email_message": "The buyer's QR code was scanned at pickup, so your money for \"Green Kids Bike with Training Wheels\" is on its way."
+     }
+    },
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v1/payments/payouts/37URZC4DWGSKL",
+      "rel": "self",
+      "method": "GET",
+      "encType": "application/json"
+     }
+    ]
+   }
+  },
+  {
+   "key": "paypal:payouts.get#0",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "ca58634c6b9d1",
+   "method": "GET",
+   "path": "/v1/payments/payouts/37URZC4DWGSKL",
+   "ms": 220,
+   "body": {
+    "batch_header": {
+     "payout_batch_id": "37URZC4DWGSKL",
+     "batch_status": "PENDING",
+     "time_created": "2026-11-10T15:49:12Z",
+     "sender_batch_header": {
+      "sender_batch_id": "cvc-dl_record-4cafwu-payout",
+      "email_subject": "Your Capy vs Capy sale was paid out",
+      "email_message": "The buyer's QR code was scanned at pickup, so your money for \"Green Kids Bike with Training Wheels\" is on its way."
+     },
+     "funding_source": "BALANCE",
+     "amount": {
+      "currency": "USD",
+      "value": "77.40"
+     }
+    },
+    "items": [
+     {
+      "payout_item_id": "D5RDF9E7DE77U",
+      "transaction_status": "PENDING",
+      "payout_batch_id": "37URZC4DWGSKL",
+      "payout_item": {
+       "recipient_type": "EMAIL",
+       "amount": {
+        "currency": "USD",
+        "value": "77.40"
+       },
+       "note": "Green Kids Bike with Training Wheels: sold for $82.00, fee $4.60",
+       "receiver": "sandbox-seller@example.com",
+       "sender_item_id": "cvc-dl_record-4cafwu-item",
+       "recipient_wallet": "PAYPAL",
+       "purpose": "GOODS"
+      },
+      "links": [
+       {
+        "href": "https://api.sandbox.paypal.com/v1/payments/payouts-item/D5RDF9E7DE77U",
+        "rel": "item",
+        "method": "GET",
+        "encType": "application/json"
+       }
+      ]
+     }
+    ],
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v1/payments/payouts/37URZC4DWGSKL?page_size=1000&page=1",
+      "rel": "self",
+      "method": "GET",
+      "encType": "application/json"
+     }
+    ]
+   }
+  },
+  {
+   "key": "paypal:payouts.get#1",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "ca58634daeb32",
+   "method": "GET",
+   "path": "/v1/payments/payouts/37URZC4DWGSKL",
+   "ms": 212,
+   "body": {
+    "batch_header": {
+     "payout_batch_id": "37URZC4DWGSKL",
+     "batch_status": "PENDING",
+     "time_created": "2026-11-10T15:49:12Z",
+     "sender_batch_header": {
+      "sender_batch_id": "cvc-dl_record-4cafwu-payout",
+      "email_subject": "Your Capy vs Capy sale was paid out",
+      "email_message": "The buyer's QR code was scanned at pickup, so your money for \"Green Kids Bike with Training Wheels\" is on its way."
+     },
+     "funding_source": "BALANCE",
+     "amount": {
+      "currency": "USD",
+      "value": "77.40"
+     }
+    },
+    "items": [
+     {
+      "payout_item_id": "D5RDF9E7DE77U",
+      "transaction_status": "PENDING",
+      "payout_batch_id": "37URZC4DWGSKL",
+      "payout_item": {
+       "recipient_type": "EMAIL",
+       "amount": {
+        "currency": "USD",
+        "value": "77.40"
+       },
+       "note": "Green Kids Bike with Training Wheels: sold for $82.00, fee $4.60",
+       "receiver": "sandbox-seller@example.com",
+       "sender_item_id": "cvc-dl_record-4cafwu-item",
+       "recipient_wallet": "PAYPAL",
+       "purpose": "GOODS"
+      },
+      "links": [
+       {
+        "href": "https://api.sandbox.paypal.com/v1/payments/payouts-item/D5RDF9E7DE77U",
+        "rel": "item",
+        "method": "GET",
+        "encType": "application/json"
+       }
+      ]
+     }
+    ],
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v1/payments/payouts/37URZC4DWGSKL?page_size=1000&page=1",
+      "rel": "self",
+      "method": "GET",
+      "encType": "application/json"
+     }
+    ]
+   }
+  },
+  {
+   "key": "paypal:payouts.get#2",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "ca58634ef0c50",
+   "method": "GET",
+   "path": "/v1/payments/payouts/37URZC4DWGSKL",
+   "ms": 371,
+   "body": {
+    "batch_header": {
+     "payout_batch_id": "37URZC4DWGSKL",
+     "batch_status": "PROCESSING",
+     "time_created": "2026-11-10T15:49:12Z",
+     "sender_batch_header": {
+      "sender_batch_id": "cvc-dl_record-4cafwu-payout",
+      "email_subject": "Your Capy vs Capy sale was paid out",
+      "email_message": "The buyer's QR code was scanned at pickup, so your money for \"Green Kids Bike with Training Wheels\" is on its way."
+     },
+     "funding_source": "BALANCE",
+     "amount": {
+      "currency": "USD",
+      "value": "77.40"
+     },
+     "fees": {
+      "currency": "USD",
+      "value": "0.25"
+     }
+    },
+    "items": [
+     {
+      "payout_item_id": "D5RDF9E7DE77U",
+      "transaction_status": "PENDING",
+      "payout_item_fee": {
+       "currency": "USD",
+       "value": "0.25"
+      },
+      "payout_batch_id": "37URZC4DWGSKL",
+      "payout_item": {
+       "recipient_type": "EMAIL",
+       "amount": {
+        "currency": "USD",
+        "value": "77.40"
+       },
+       "note": "Green Kids Bike with Training Wheels: sold for $82.00, fee $4.60",
+       "receiver": "sandbox-seller@example.com",
+       "sender_item_id": "cvc-dl_record-4cafwu-item",
+       "recipient_wallet": "PAYPAL",
+       "purpose": "GOODS"
+      },
+      "links": [
+       {
+        "href": "https://api.sandbox.paypal.com/v1/payments/payouts-item/D5RDF9E7DE77U",
+        "rel": "item",
+        "method": "GET",
+        "encType": "application/json"
+       }
+      ]
+     }
+    ],
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v1/payments/payouts/37URZC4DWGSKL?page_size=1000&page=1",
+      "rel": "self",
+      "method": "GET",
+      "encType": "application/json"
+     }
+    ]
+   }
+  },
+  {
+   "key": "paypal:payouts.get#3",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "ca58635042e6d",
+   "method": "GET",
+   "path": "/v1/payments/payouts/37URZC4DWGSKL",
+   "ms": 219,
+   "body": {
+    "batch_header": {
+     "payout_batch_id": "37URZC4DWGSKL",
+     "batch_status": "PROCESSING",
+     "time_created": "2026-11-10T15:49:12Z",
+     "sender_batch_header": {
+      "sender_batch_id": "cvc-dl_record-4cafwu-payout",
+      "email_subject": "Your Capy vs Capy sale was paid out",
+      "email_message": "The buyer's QR code was scanned at pickup, so your money for \"Green Kids Bike with Training Wheels\" is on its way."
+     },
+     "funding_source": "BALANCE",
+     "amount": {
+      "currency": "USD",
+      "value": "77.40"
+     },
+     "fees": {
+      "currency": "USD",
+      "value": "0.25"
+     }
+    },
+    "items": [
+     {
+      "payout_item_id": "D5RDF9E7DE77U",
+      "transaction_status": "PENDING",
+      "payout_item_fee": {
+       "currency": "USD",
+       "value": "0.25"
+      },
+      "payout_batch_id": "37URZC4DWGSKL",
+      "payout_item": {
+       "recipient_type": "EMAIL",
+       "amount": {
+        "currency": "USD",
+        "value": "77.40"
+       },
+       "note": "Green Kids Bike with Training Wheels: sold for $82.00, fee $4.60",
+       "receiver": "sandbox-seller@example.com",
+       "sender_item_id": "cvc-dl_record-4cafwu-item",
+       "recipient_wallet": "PAYPAL",
+       "purpose": "GOODS"
+      },
+      "links": [
+       {
+        "href": "https://api.sandbox.paypal.com/v1/payments/payouts-item/D5RDF9E7DE77U",
+        "rel": "item",
+        "method": "GET",
+        "encType": "application/json"
+       }
+      ]
+     }
+    ],
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v1/payments/payouts/37URZC4DWGSKL?page_size=1000&page=1",
+      "rel": "self",
+      "method": "GET",
+      "encType": "application/json"
+     }
+    ]
+   }
+  },
+  {
+   "key": "paypal:payouts.get#4",
+   "kind": "paypal",
+   "status": 200,
+   "debugId": "ca58635184ea0",
+   "method": "GET",
+   "path": "/v1/payments/payouts/37URZC4DWGSKL",
+   "ms": 220,
+   "body": {
+    "batch_header": {
+     "payout_batch_id": "37URZC4DWGSKL",
+     "batch_status": "PROCESSING",
+     "time_created": "2026-11-10T15:49:12Z",
+     "sender_batch_header": {
+      "sender_batch_id": "cvc-dl_record-4cafwu-payout",
+      "email_subject": "Your Capy vs Capy sale was paid out",
+      "email_message": "The buyer's QR code was scanned at pickup, so your money for \"Green Kids Bike with Training Wheels\" is on its way."
+     },
+     "funding_source": "BALANCE",
+     "amount": {
+      "currency": "USD",
+      "value": "77.40"
+     },
+     "fees": {
+      "currency": "USD",
+      "value": "0.25"
+     }
+    },
+    "items": [
+     {
+      "payout_item_id": "D5RDF9E7DE77U",
+      "transaction_id": "6KN67007DL4570638",
+      "activity_id": "5BH53722NK260034X",
+      "transaction_status": "SUCCESS",
+      "payout_item_fee": {
+       "currency": "USD",
+       "value": "0.25"
+      },
+      "payout_batch_id": "37URZC4DWGSKL",
+      "payout_item": {
+       "recipient_type": "EMAIL",
+       "amount": {
+        "currency": "USD",
+        "value": "77.40"
+       },
+       "note": "Green Kids Bike with Training Wheels: sold for $82.00, fee $4.60",
+       "receiver": "sandbox-seller@example.com",
+       "sender_item_id": "cvc-dl_record-4cafwu-item",
+       "recipient_wallet": "PAYPAL",
+       "purpose": "GOODS"
+      },
+      "time_processed": "2026-11-10T15:49:28Z",
+      "links": [
+       {
+        "href": "https://api.sandbox.paypal.com/v1/payments/payouts-item/D5RDF9E7DE77U",
+        "rel": "item",
+        "method": "GET",
+        "encType": "application/json"
+       }
+      ]
+     }
+    ],
+    "links": [
+     {
+      "href": "https://api.sandbox.paypal.com/v1/payments/payouts/37URZC4DWGSKL?page_size=1000&page=1",
+      "rel": "self",
+      "method": "GET",
+      "encType": "application/json"
+     }
+    ]
+   }
+  }
+ ]
+}

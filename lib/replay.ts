@@ -2,13 +2,15 @@
  * Replay mode: the main flow, run by the same code, from recorded real sandbox and AI responses.
  *
  * A replay deal gets its own frozen copy of the listing that was used when the fixture was
- * recorded, so the referee judges the recorded moves against the same facts. Nothing in Replay
- * mode calls PayPal or a model.
+ * recorded (same id, same facts), so the referee and the guards judge the recorded moves against
+ * exactly what the models saw. The copy lives outside the live shelf. Nothing in Replay mode calls
+ * PayPal or a model.
  */
 import { upcomingPickupWindows } from "./demo-data";
 import { createDeal } from "./deals";
 import { shortId } from "./ids";
-import { saveDeal, saveListing, saveListingPrivate } from "./repo";
+import { keys, saveDeal } from "./repo";
+import { store } from "./store";
 import { DEFAULT_SCENARIO, loadTape, type Tape } from "./tape";
 import type { Deal, Listing } from "./types";
 import { sellerPrivate } from "./world";
@@ -29,29 +31,25 @@ export async function scenario(name = DEFAULT_SCENARIO): Promise<ScenarioTape> {
 
 export async function createReplayDeal(): Promise<Deal> {
   const tape = await scenario();
-  const suffix = shortId("r", 6).slice(2);
-  const listing: Listing = {
-    ...tape.listing,
-    id: `rpl-${suffix}`,
-    status: "active",
-    // Same window ids as the recording, dated for the coming weekend.
-    pickupWindows: upcomingPickupWindows().map((w) => ({ ...w })),
-    seeded: false,
-  };
-  // The recorded offers name window ids; keep any id from the recording that the fresh set lacks.
-  for (const w of tape.listing.pickupWindows) {
-    if (!listing.pickupWindows.some((x) => x.id === w.id)) listing.pickupWindows.push(w);
-  }
-  await saveListing(listing);
-  await saveListingPrivate(sellerPrivate(listing.id, tape.floorCents));
-  const deal = await createDeal({ listing, ceilingCents: tape.ceilingCents, pickupWindowIds: tape.pickupWindowIds, mode: "replay", id: `rpl_${suffix}` });
-  // The copy exists only for this replay. Keep it out of the public listing shelf.
-  listing.status = "reserved";
-  await saveListing(listing);
+  const id = `rpl_${shortId("r", 6).slice(2)}`;
+  // Same window ids as the recording, dated for the coming weekend.
+  const fresh = upcomingPickupWindows();
+  const pickupWindows = [...fresh, ...tape.listing.pickupWindows.filter((w) => !fresh.some((f) => f.id === w.id))];
+  const listing: Listing = { ...tape.listing, status: "active", pickupWindows, seeded: false };
+  await store().set(keys.replayListing(id), listing);
+  const deal = await createDeal({
+    listing,
+    ceilingCents: tape.ceilingCents,
+    pickupWindowIds: tape.pickupWindowIds,
+    mode: "replay",
+    id,
+    sellerMandate: sellerPrivate(listing.id, tape.floorCents).mandate,
+  });
   await saveDeal(deal);
   return deal;
 }
 
+/** Older replay copies lived on the shelf under this prefix; they are still filtered out. */
 export function isReplayListing(listing: Pick<Listing, "id">): boolean {
   return listing.id.startsWith("rpl-");
 }

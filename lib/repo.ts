@@ -10,6 +10,8 @@ export const keys = {
   deal: (id: string) => `deals/${id}`,
   claim: (dealId: string, what: string) => `claims/${dealId}/${what}`,
   webhookEvent: (id: string) => `webhook-events/${id}`,
+  /** A replay deal's own frozen copy of the recorded listing (same id as in the recording). */
+  replayListing: (dealId: string) => `replay-listings/${dealId}`,
   seedSnapshot: () => "seed/snapshot",
   seedManifest: () => "seed/manifest",
 };
@@ -25,6 +27,15 @@ export const getWantPrivate = (id: string) => store().get<WantPrivate>(keys.want
 export const saveWantPrivate = (p: WantPrivate) => store().set(keys.wantPrivate(p.wantId), p);
 
 export const getDeal = (id: string) => store().get<Deal>(keys.deal(id));
+
+/** The listing a deal works on. Replay deals have their own copy and never touch the live shelf. */
+export function getDealListing(deal: Pick<Deal, "id" | "mode" | "listingId">): Promise<Listing | null> {
+  return deal.mode === "replay" ? store().get<Listing>(keys.replayListing(deal.id)) : getListing(deal.listingId);
+}
+
+export function saveDealListing(deal: Pick<Deal, "id" | "mode">, listing: Listing): Promise<void> {
+  return deal.mode === "replay" ? store().set(keys.replayListing(deal.id), listing) : saveListing(listing);
+}
 export const saveDeal = (d: Deal) => store().set(keys.deal(d.id), d);
 
 async function loadAll<T>(prefix: string): Promise<T[]> {
