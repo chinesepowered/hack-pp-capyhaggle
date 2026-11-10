@@ -14,6 +14,9 @@ interface AppState {
   setHoodDeal: (d: DealView | null) => void;
   hoodOpen: boolean;
   setHoodOpen: (open: boolean) => void;
+  /** Mascot voice lines (pre-rendered audio). Off until the visitor turns it on. */
+  sound: boolean;
+  setSound: (on: boolean) => void;
   ready: boolean;
 }
 
@@ -21,7 +24,8 @@ const Ctx = createContext<AppState | null>(null);
 
 function readStored<T extends string>(key: string, allowed: readonly T[], fallback: T): T {
   if (typeof window === "undefined") return fallback;
-  const fromUrl = new URLSearchParams(window.location.search).get(key === "cvc-role" ? "as" : "mode");
+  const param = key === "cvc-role" ? "as" : key === "cvc-mode" ? "mode" : "sound";
+  const fromUrl = new URLSearchParams(window.location.search).get(param);
   if (fromUrl && (allowed as readonly string[]).includes(fromUrl)) return fromUrl as T;
   try {
     const v = window.localStorage.getItem(key);
@@ -37,6 +41,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [mode, setModeState] = useState<Mode>("live");
   const [hoodDeal, setHoodDeal] = useState<DealView | null>(null);
   const [hoodOpen, setHoodOpen] = useState(false);
+  const [sound, setSoundState] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -44,6 +49,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setRoleState(readStored("cvc-role", ["buyer", "seller"] as const, "buyer"));
     setModeState(readStored("cvc-mode", ["live", "replay"] as const, "live"));
+    setSoundState(readStored("cvc-sound", ["on", "off"] as const, "off") === "on");
     setReady(true);
   }, []);
 
@@ -64,9 +70,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const setSound = useCallback((on: boolean) => {
+    setSoundState(on);
+    try {
+      window.localStorage.setItem("cvc-sound", on ? "on" : "off");
+    } catch {
+      // ignore
+    }
+  }, []);
+
   const value = useMemo(
-    () => ({ role, setRole, mode, setMode, hoodDeal, setHoodDeal, hoodOpen, setHoodOpen, ready }),
-    [role, setRole, mode, setMode, hoodDeal, hoodOpen, ready],
+    () => ({ role, setRole, mode, setMode, hoodDeal, setHoodDeal, hoodOpen, setHoodOpen, sound, setSound, ready }),
+    [role, setRole, mode, setMode, hoodDeal, hoodOpen, sound, setSound, ready],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

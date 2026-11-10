@@ -82,7 +82,7 @@ function AgentBubble({ deal, turn }: { deal: DealView; turn: Turn }) {
         {turn.offer ? <OfferChips deal={deal} offer={turn.offer} accepted={turn.kind === "accept"} /> : null}
         <p className="text-[15px] leading-snug">{turn.message}</p>
         {turn.tool ? (
-          <div className="mt-2 rounded-lg border border-[#bcd2f5] bg-pay-soft px-2.5 py-1.5 font-mono text-[12px] leading-relaxed text-ink">
+          <div className="mt-2 rounded-lg border border-[#bcd2f5] bg-pay-soft px-2.5 py-1.5 font-mono text-[12px] leading-relaxed text-ink [overflow-wrap:anywhere]">
             <div>
               <span className="font-bold text-pay">{turn.tool.name}</span>({JSON.stringify(turn.tool.args)})
             </div>
@@ -142,7 +142,16 @@ function SystemLine({ turn }: { turn: Turn }) {
 export function Thread({ deal, typing }: { deal: DealView; typing: AgentName | null }) {
   const endRef = useRef<HTMLLIElement>(null);
   const count = deal.turns.length;
+  const opened = useRef(false);
   useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)").matches;
+    // On a phone the thread is part of the page, so opening a deal must not jump past the scene
+    // and the status panels. New moves still scroll into view.
+    if (!opened.current && !desktop) {
+      opened.current = true;
+      return;
+    }
+    opened.current = true;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     endRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
   }, [count, typing]);

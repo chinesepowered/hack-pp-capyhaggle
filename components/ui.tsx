@@ -54,8 +54,17 @@ export function Spinner({ className }: { className?: string }) {
   );
 }
 
-export function Card({ children, className, as: Tag = "div" }: { children: ReactNode; className?: string; as?: "div" | "section" | "article" | "li" }) {
-  return <Tag className={cx("rounded-2xl border border-paper-3 bg-white shadow-[0_1px_0_rgba(42,31,23,0.04)]", className)}>{children}</Tag>;
+export function Card({
+  children,
+  className,
+  as: Tag = "div",
+  ...rest
+}: { children: ReactNode; className?: string; as?: "div" | "section" | "article" | "li"; "data-testid"?: string; "aria-busy"?: boolean }) {
+  return (
+    <Tag {...rest} className={cx("rounded-2xl border border-paper-3 bg-white shadow-[0_1px_0_rgba(42,31,23,0.04)]", className)}>
+      {children}
+    </Tag>
+  );
 }
 
 export function Pill({ children, tone = "neutral", className, title }: { children: ReactNode; tone?: "neutral" | "spring" | "money" | "warn" | "danger" | "pay" | "yuzu"; className?: string; title?: string }) {

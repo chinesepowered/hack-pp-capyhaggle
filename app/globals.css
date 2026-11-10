@@ -46,6 +46,7 @@ html {
 
 body {
   min-height: 100dvh;
+  overflow-x: clip;
   font-family: var(--font-sans);
   line-height: 1.5;
 }

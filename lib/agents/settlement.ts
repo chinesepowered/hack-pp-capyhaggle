@@ -185,7 +185,7 @@ export interface RefundDecision {
 }
 
 /** Barley refunds the buyer through the Agent Toolkit's create_refund tool, behind the refund guard. */
-export async function refundThroughToolkit(deal: Deal, reason: string): Promise<RefundDecision> {
+export async function refundThroughToolkit(deal: Deal, reason: string, requestId: string): Promise<RefundDecision> {
   const [tool] = toolkitToolDefinitions(["create_refund"]);
   const decision = await decide({
     agent: "barley",
@@ -201,7 +201,7 @@ export async function refundThroughToolkit(deal: Deal, reason: string): Promise<
     scriptedArgs: { capture_id: deal.payment.captureId, note_to_payer: "Refund for a problem reported within 24 hours of pickup." },
   });
   const args: Record<string, unknown> = { capture_id: decision.value.captureId, note_to_payer: "Refund for a problem reported within 24 hours of pickup." };
-  const result = await runToolkitTool("create_refund", args);
+  const result = await runToolkitTool("create_refund", args, requestId);
   const d = result.data as { id?: string; status?: string; message?: string };
   const ok = result.ok && typeof d.id === "string";
   decision.trail.push(trailStep(ok ? `PayPal refund ${d.id}: ${d.status}` : `Refund failed: ${d.message ?? result.raw.slice(0, 160)}`, ok ? "ok" : "blocked", "Issued through the Agent Toolkit tool create_refund."));

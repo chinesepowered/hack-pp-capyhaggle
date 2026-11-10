@@ -1,0 +1,66 @@
+{
+  "totalCharacters": 340,
+  "budget": 15000,
+  "requests": [
+    {
+      "at": "2026-11-10T16:02:34.576Z",
+      "voice": "barley",
+      "characters": 25,
+      "file": "public/audio/barley-start.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:34.915Z",
+      "voice": "barley",
+      "characters": 16,
+      "file": "public/audio/barley-deal.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:35.404Z",
+      "voice": "barley",
+      "characters": 54,
+      "file": "public/audio/barley-hold.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:35.827Z",
+      "voice": "barley",
+      "characters": 37,
+      "file": "public/audio/barley-scam.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:36.320Z",
+      "voice": "barley",
+      "characters": 35,
+      "file": "public/audio/barley-walk.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:36.739Z",
+      "voice": "biscuit",
+      "characters": 28,
+      "file": "public/audio/biscuit-start.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:37.070Z",
+      "voice": "biscuit",
+      "characters": 31,
+      "file": "public/audio/biscuit-deal.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:37.505Z",
+      "voice": "biscuit",
+      "characters": 48,
+      "file": "public/audio/biscuit-held.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:37.876Z",
+      "voice": "biscuit",
+      "characters": 24,
+      "file": "public/audio/biscuit-paid.mp3"
+    },
+    {
+      "at": "2026-11-10T16:02:38.293Z",
+      "voice": "biscuit",
+      "characters": 42,
+      "file": "public/audio/biscuit-scam.mp3"
+    }
+  ]
+}

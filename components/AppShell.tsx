@@ -14,15 +14,15 @@ const NAV = [
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const { role, setRole, mode, setMode, setHoodOpen, hoodDeal } = useApp();
+  const { role, setRole, mode, setMode, setHoodOpen, hoodDeal, sound, setSound } = useApp();
   const pathname = usePathname();
   return (
     <div className="flex min-h-dvh flex-col">
       <a href="#main" className="sr-only-focusable absolute left-3 top-3 z-50 rounded-lg bg-ink px-3 py-2 text-sm font-semibold text-white">
         Skip to content
       </a>
-      <header className="sticky top-0 z-30 border-b border-paper-3 bg-paper/95 backdrop-blur">
-        <div className="mx-auto flex max-w-[1360px] flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5">
+      <header className="z-30 border-b border-paper-3 bg-paper/95 backdrop-blur sm:sticky sm:top-0">
+        <div className="mx-auto flex max-w-[1360px] flex-wrap items-center gap-x-3 gap-y-1.5 px-3 py-2 sm:gap-x-4 sm:px-4 sm:py-2.5">
           <Link href="/" className="flex items-center gap-2 rounded-lg pr-1" aria-label="Capy vs Capy, home">
             <span className="flex -space-x-2" aria-hidden="true">
               <BarleyAvatar size={34} />
@@ -33,7 +33,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
 
-          <nav aria-label="Main" className="order-3 flex w-full items-center gap-1 sm:order-none sm:w-auto">
+          <nav aria-label="Main" className="order-3 flex items-center gap-1 sm:order-none">
             {NAV.map((n) => {
               const active = n.href === "/" ? pathname === "/" : pathname.startsWith(n.href);
               return (
@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             })}
           </nav>
 
-          <div className="ml-auto flex flex-wrap items-center gap-2">
+          <div className="order-4 ml-auto flex items-center gap-1.5 sm:order-none sm:ml-auto sm:gap-2">
             <fieldset className="flex items-center rounded-xl border border-paper-3 bg-white p-0.5">
               <legend className="sr-only">Who you are viewing as</legend>
               {(["buyer", "seller"] as const).map((r) => (
@@ -84,6 +84,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </label>
               ))}
             </fieldset>
+          </div>
+
+          <div className="order-2 sm:ml-0 ml-auto flex items-center gap-1.5 sm:order-none sm:gap-2">
+            <button
+              type="button"
+              onClick={() => setSound(!sound)}
+              aria-pressed={sound}
+              title="Barley and Biscuit speak a few short lines (pre-recorded audio)"
+              data-testid="sound-toggle"
+              className={cx("inline-flex min-h-9 items-center gap-1.5 rounded-xl border px-2.5 text-sm font-semibold", sound ? "border-spring-deep bg-spring-mist text-spring-deep" : "border-paper-3 bg-white text-ink-soft")}
+            >
+              <svg viewBox="0 0 20 20" className="h-4 w-4" aria-hidden="true">
+                <path d="M3 8v4h3l4 3V5L6 8H3Z" fill="currentColor" />
+                {sound ? <path d="M13 7.5a3.5 3.5 0 0 1 0 5M15 5.5a6.5 6.5 0 0 1 0 9" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /> : <path d="m13 8 4 4m0-4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />}
+              </svg>
+              <span className="hidden sm:inline">Voices {sound ? "on" : "off"}</span>
+              <span className="sr-only sm:hidden">Voices {sound ? "on" : "off"}</span>
+            </button>
 
             <button
               type="button"
@@ -94,7 +112,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <svg viewBox="0 0 20 20" className="h-4 w-4" aria-hidden="true">
                 <path d="M3 5h14M3 10h14M3 15h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
               </svg>
-              Under the hood
+              <span className="hidden sm:inline">Under the hood</span>
+              <span className="sm:hidden">Hood</span>
               {hoodDeal ? <span className="rounded-full bg-white/20 px-1.5 text-xs">{hoodDeal.calls.length}</span> : null}
             </button>
           </div>

@@ -15,6 +15,8 @@ import { AcceptCard, HoldBanner, MandateCard, OutcomePanel, PaidPanel, Tracker }
 import { PayPalHold, ReplayApproval } from "./PayPalHold";
 import { PriceTrack } from "./PriceTrack";
 import { Thread } from "./Thread";
+import { playVoiceLines } from "../voice";
+import type { VoiceLine } from "@/lib/voice-lines";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -30,7 +32,7 @@ function scenePhase(deal: DealView): HotSpringPhase {
 }
 
 export function DealRoom({ id }: { id: string }) {
-  const { role, setRole, setHoodDeal, ready } = useApp();
+  const { role, setRole, setHoodDeal, ready, sound } = useApp();
   const [deal, setDeal] = useState<DealView | null>(null);
   const [error, setError] = useState<{ message: string; debugId?: string } | null>(null);
   const [notFound, setNotFound] = useState(false);
@@ -159,8 +161,32 @@ export function DealRoom({ id }: { id: string }) {
       .catch(() => undefined);
   }, [deal, id, role, accept]);
 
-  // Polling: re-read PayPal whenever a money state can change, so nothing depends on webhooks.
   const status = deal?.status;
+
+  // The mascots say a short pre-recorded line when something happens (only if voices are on).
+  const heard = useRef<{ status?: string; flags: number } | null>(null);
+  const flagCount = deal?.flags.length ?? 0;
+  const lastFlagFrom = deal?.flags.at(-1)?.from;
+  const verified = deal?.turns.some((t) => t.tool?.name === "get_order") ?? false;
+  useEffect(() => {
+    if (!status) return;
+    const before = heard.current;
+    heard.current = { status: verified && status === "held" ? "held+verified" : status, flags: flagCount };
+    if (!before || !sound) return; // nothing plays for the state a page opens in
+    if (flagCount > before.flags) return playVoiceLines([lastFlagFrom === "buyer" ? "biscuit-scam" : "barley-scam"]);
+    if (before.status === heard.current.status) return;
+    const lines: Partial<Record<string, VoiceLine[]>> = {
+      agreed: ["barley-deal", "biscuit-deal"],
+      awaiting_payment: ["barley-hold"],
+      "held+verified": ["biscuit-held"],
+      completed: ["biscuit-paid"],
+      walked: ["barley-walk"],
+    };
+    const say = lines[heard.current.status ?? ""];
+    if (say) playVoiceLines(say);
+  }, [status, flagCount, lastFlagFrom, verified, sound]);
+
+  // Polling: re-read PayPal whenever a money state can change, so nothing depends on webhooks.
   const payoutPending = status === "completed" && deal?.payment.payoutItemStatus !== "SUCCESS";
   const paused = deal?.paused;
   useEffect(() => {
@@ -220,23 +246,24 @@ export function DealRoom({ id }: { id: string }) {
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_400px]" data-testid="deal-room" data-status={deal.status}>
-      <div className="flex min-w-0 flex-col gap-3 lg:h-[calc(100dvh-104px)] lg:min-h-[640px]">
-        <div className="flex flex-wrap items-center gap-2">
+    <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-4" data-testid="deal-room" data-status={deal.status}>
+      {/* On phones the pieces interleave: scene, then status and actions, then the thread. */}
+      <div className="contents min-w-0 lg:flex lg:h-[calc(100dvh-104px)] lg:min-h-[640px] lg:flex-col lg:gap-3">
+        <div className="order-1 flex flex-wrap items-center gap-2">
           <h1 className="text-xl font-semibold sm:text-2xl">{deal.listing.title}</h1>
           <Pill tone={s.tone}>{s.label}</Pill>
           {deal.mode === "replay" ? <Pill tone="yuzu">Replay of a recorded sandbox run</Pill> : <Pill tone="money">Live sandbox</Pill>}
           {deal.seeded ? <Pill>seeded</Pill> : null}
         </div>
 
-        <div className="grid shrink-0 gap-3 xl:grid-cols-[minmax(0,1fr)_250px]">
+        <div className="order-2 grid shrink-0 gap-3 sm:grid-cols-[minmax(0,1fr)_230px] lg:grid-cols-1 xl:grid-cols-[minmax(0,1fr)_250px]">
           <div className="overflow-hidden rounded-2xl border border-paper-3 bg-[#e9f5f1]">
             <HotSpring phase={phase} speaker={speaker} barleyMood={mood("barley")} biscuitMood={mood("biscuit")} className="mx-auto block h-auto max-h-[300px] w-full" />
           </div>
           <PriceTrack deal={deal} />
         </div>
 
-        <Card className="flex min-h-[320px] flex-1 flex-col overflow-hidden lg:min-h-0">
+        <Card className="order-4 flex min-h-[320px] flex-1 flex-col overflow-hidden lg:min-h-0">
           <Thread deal={deal} typing={typing} />
           {deal.can.jumpIn ? (
             <div className="border-t border-paper-3 bg-paper/60 p-3">
@@ -297,10 +324,10 @@ export function DealRoom({ id }: { id: string }) {
             </div>
           ) : null}
         </Card>
-        <ErrorNote error={error} />
+        <ErrorNote error={error} className="order-5" />
       </div>
 
-      <aside className="flex min-w-0 flex-col gap-3" aria-label="Deal status and actions">
+      <aside className="order-3 flex min-w-0 flex-col gap-3 lg:order-none" aria-label="Deal status and actions">
         <Tracker deal={deal} />
 
         {deal.status === "agreed" ? (

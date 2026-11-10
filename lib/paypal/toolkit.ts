@@ -60,18 +60,23 @@ function subscribe(): void {
 
 let memo: PayPalAgentToolkit | undefined;
 
-function toolkit(): PayPalAgentToolkit {
-  if (!memo) {
-    memo = new PayPalAgentToolkit({
-      clientId: env.paypalClientId,
-      clientSecret: env.paypalClientSecret,
-      configuration: {
-        // Only the two tools this app uses are enabled.
-        actions: { orders: { get: true }, payments: { createRefund: true } },
-        context: { sandbox: true },
-      },
-    });
-  }
+function build(requestId?: string): PayPalAgentToolkit {
+  return new PayPalAgentToolkit({
+    clientId: env.paypalClientId,
+    clientSecret: env.paypalClientSecret,
+    configuration: {
+      // Only the two tools this app uses are enabled.
+      actions: { orders: { get: true }, payments: { createRefund: true } },
+      // The toolkit sends context.request_id as the PayPal-Request-Id header.
+      context: { sandbox: true, ...(requestId ? { request_id: requestId } : {}) },
+    },
+  });
+}
+
+/** Reads share one instance. A write gets its own, carrying that write's PayPal-Request-Id. */
+function toolkit(requestId?: string): PayPalAgentToolkit {
+  if (requestId) return build(requestId);
+  memo ??= build();
   return memo;
 }
 
@@ -137,7 +142,7 @@ function parseContent(content: unknown): { data: Record<string, unknown>; raw: s
  * Executes one toolkit tool. Callers must have run the matching guard first.
  * Every HTTP request the toolkit makes is logged for the "Under the hood" drawer.
  */
-export async function runToolkitTool(name: ToolkitToolName, args: Record<string, unknown>): Promise<ToolkitResult> {
+export async function runToolkitTool(name: ToolkitToolName, args: Record<string, unknown>, requestId?: string): Promise<ToolkitResult> {
   const key = nextKey(`paypal:toolkit.${name}`);
   const expected = EXPECTED_PATH[name](args);
   const entry = replayEntry(key);
@@ -155,7 +160,7 @@ export async function runToolkitTool(name: ToolkitToolName, args: Record<string,
   let threw: unknown;
   try {
     const message = await captureScope.run(capture, () =>
-      toolkit().handleToolCall({ id: `call_${Date.now()}`, type: "function", function: { name, arguments: JSON.stringify(args) } } as never),
+      toolkit(requestId).handleToolCall({ id: `call_${Date.now()}`, type: "function", function: { name, arguments: JSON.stringify(args) } } as never),
     );
     content = (message as { content?: unknown }).content;
   } catch (err) {
@@ -165,7 +170,7 @@ export async function runToolkitTool(name: ToolkitToolName, args: Record<string,
   const ms = Date.now() - started;
   const main = capture.seen.find((s) => s.path.startsWith(expected.path.split("?")[0]));
   for (const s of capture.seen) {
-    logCall({ method: s.method, path: s.path, status: s.status, debugId: s.debugId, via: "agent-toolkit", ms: s.ms, note: s === main ? `tool ${name}` : "toolkit OAuth token" });
+    logCall({ method: s.method, path: s.path, status: s.status, debugId: s.debugId, via: "agent-toolkit", ms: s.ms, requestId: s === main ? requestId : undefined, note: s === main ? `tool ${name}` : "toolkit OAuth token" });
   }
   if (capture.seen.length === 0) {
     logCall({ method: expected.method, path: expected.path, status: threw ? 0 : 200, via: "agent-toolkit", ms, note: `tool ${name} (headers not observed)` });

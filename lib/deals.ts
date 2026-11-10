@@ -468,7 +468,7 @@ export async function refundBuyer(deal: Deal, listing: Listing, reason: string):
     if (!claimed && currentContext().mode === "live") throw new RuleError("REFUND_IN_PROGRESS", "A refund for this deal is already in progress.");
     let result;
     try {
-      result = await refundThroughToolkit(deal, reason);
+      result = await refundThroughToolkit(deal, reason, requestId(deal, "refund"));
     } catch (err) {
       await releaseWrite(deal.id, "refund");
       const e = err as Error & { guard?: boolean; code?: string };
