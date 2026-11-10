@@ -8,33 +8,33 @@
       {
         "id": "f1",
         "kind": "condition",
-        "text": "Paint on the frame is bright"
+        "text": "Tires appear inflated with good tread"
       },
       {
         "id": "f2",
         "kind": "condition",
-        "text": "Tires appear to have plenty of tread"
+        "text": "Paint is bright on the main frame"
       },
       {
         "id": "f3",
         "kind": "flaw",
-        "text": "Scuffs and paint chips on the red rear fender"
+        "text": "Scuffing and paint loss on the red rear fender"
       },
       {
         "id": "f4",
         "kind": "flaw",
-        "text": "Surface rust on the chain and sprocket"
+        "text": "Surface rust on the chain and chainring"
       },
       {
         "id": "f5",
-        "kind": "measurement",
-        "text": "Wheel size: about 16 in",
-        "estimate": true
+        "kind": "flaw",
+        "text": "Minor scratches on the green frame near the pedals"
       },
       {
         "id": "f6",
-        "kind": "feature",
-        "text": "Bought new for $190 two summers ago"
+        "kind": "measurement",
+        "text": "Wheel size: about 16 in",
+        "estimate": true
       },
       {
         "id": "f7",
@@ -48,16 +48,21 @@
       },
       {
         "id": "f9",
-        "kind": "included",
-        "text": "Training wheels"
+        "kind": "feature",
+        "text": "Bought new for $190 two summers ago"
       },
       {
         "id": "f10",
         "kind": "included",
-        "text": "Rear cargo rack"
+        "text": "Training wheels"
       },
       {
         "id": "f11",
+        "kind": "included",
+        "text": "Rear cargo rack"
+      },
+      {
+        "id": "f12",
         "kind": "included",
         "text": "Front reflector"
       }
@@ -68,8 +73,8 @@
         "label": "Bike helmet"
       },
       {
-        "id": "bike-lock",
-        "label": "Bike lock"
+        "id": "bike-bell",
+        "label": "Bike bell"
       }
     ],
     "ai": {
@@ -80,7 +85,7 @@
       "lowCents": 6000,
       "highCents": 9000,
       "suggestedCents": 7500,
-      "basis": "Based on the item being two years old with visible wear like rust and scuffs, it falls below the typical 40-60% resale value of the original $190 price.",
+      "basis": "Based on the item being two years old with visible wear like rust and scuffs, it falls below the typical 40-60% resale value of the $190 original price, reflecting a realistic person-to-person market rate for a used kids' bike in good but n",
       "ai": {
         "model": "Qwen/Qwen3.8-27B",
         "purpose": "Price estimate"
@@ -89,46 +94,63 @@
     "photoCredit": "Photos: Donald Trung Quoc Don, Wikimedia Commons, CC BY-SA 4.0"
   },
   "table": {
-    "title": "Teak side table",
+    "title": "Mid-century style teak side table",
     "category": "furniture",
-    "description": "A mid-century style side table with a lower storage shelf. The piece is made of teak and described by the seller as sturdy.",
+    "description": "A sturdy wooden side table with a mid-century aesthetic. It features a square top and a lower storage shelf.",
     "conditionGrade": "good",
     "facts": [
       {
         "id": "f1",
         "kind": "condition",
-        "text": "Wood finish has a consistent glow"
+        "text": "Wood finish has a consistent warm tone"
       },
       {
         "id": "f2",
         "kind": "condition",
-        "text": "Structure appears solid and level"
+        "text": "Structure appears stable and sturdy"
       },
       {
         "id": "f3",
         "kind": "flaw",
-        "text": "Small surface scuffs and light scratches on the top tabletop"
+        "text": "Minor surface scuffs on the top face"
       },
       {
         "id": "f4",
-        "kind": "feature",
-        "text": "Mid-century style"
+        "kind": "measurement",
+        "text": "Width: about 20 in",
+        "estimate": true
       },
       {
         "id": "f5",
-        "kind": "feature",
-        "text": "Lower storage shelf"
+        "kind": "measurement",
+        "text": "Height: about 22 in",
+        "estimate": true
       },
       {
         "id": "f6",
         "kind": "feature",
+        "text": "Teak wood"
+      },
+      {
+        "id": "f7",
+        "kind": "feature",
+        "text": "Mid-century style"
+      },
+      {
+        "id": "f8",
+        "kind": "feature",
         "text": "Sturdy construction"
+      },
+      {
+        "id": "f9",
+        "kind": "included",
+        "text": "Lower storage shelf"
       }
     ],
     "suggestedExtras": [
       {
-        "id": "furniture-polish",
-        "label": "Furniture polish"
+        "id": "wood-polish",
+        "label": "Wood polish"
       },
       {
         "id": "coasters",
@@ -141,9 +163,9 @@
     },
     "price": {
       "lowCents": 6000,
-      "highCents": 9000,
+      "highCents": 9500,
       "suggestedCents": 7500,
-      "basis": "Based on the item being in good condition with minor surface scuffs and light scratches, valued at approximately 40-55% of the $160 original purchase price.",
+      "basis": "Based on the original $160 price and 'good' condition with minor scuffs, this item falls within the typical 40-60% resale range for used furniture.",
       "ai": {
         "model": "Qwen/Qwen3.8-27B",
         "purpose": "Price estimate"
@@ -152,9 +174,9 @@
     "photoCredit": "Photos: The Living Room (Flickr), CC BY 2.0"
   },
   "stroller": {
-    "title": "Folding Umbrella Stroller",
+    "title": "Folding Stroller",
     "category": "stroller",
-    "description": "A lightweight navy blue and white striped stroller. According to the seller, it was used for one child and folds flat for transport in a car.",
+    "description": "A navy blue and white striped stroller. According to the seller, it was used for one child and folds flat for transport in a car.",
     "conditionGrade": "good",
     "facts": [
       {
@@ -170,12 +192,12 @@
       {
         "id": "f3",
         "kind": "flaw",
-        "text": "Scuff marks on the white plastic front footrest"
+        "text": "Scuffing and dirt on the white plastic front footrest"
       },
       {
         "id": "f4",
         "kind": "flaw",
-        "text": "Minor dirt/wear on the wheels from outdoor use"
+        "text": "Minor wear on the front wheels"
       },
       {
         "id": "f5",
@@ -185,12 +207,12 @@
       {
         "id": "f6",
         "kind": "feature",
-        "text": "Navy blue and white striped fabric"
+        "text": "Navy blue fabric with white stripes and polka dots"
       },
       {
         "id": "f7",
-        "kind": "feature",
-        "text": "White frame"
+        "kind": "included",
+        "text": "Safety harness"
       }
     ],
     "suggestedExtras": [
@@ -199,8 +221,8 @@
         "label": "Cup holder"
       },
       {
-        "id": "stroller-organizer",
-        "label": "Stroller organizer"
+        "id": "rain-cover",
+        "label": "Rain cover"
       }
     ],
     "ai": {
@@ -211,7 +233,7 @@
       "lowCents": 8000,
       "highCents": 13000,
       "suggestedCents": 10000,
-      "basis": "Based on the item being in good condition with minor cosmetic wear, priced at roughly 40-60% of the $220 original cost for a person-to-person sale.",
+      "basis": "Based on the item being in good condition with minor cosmetic wear and functioning mechanisms, valued at approximately 40-60% of the $220 original price.",
       "ai": {
         "model": "Qwen/Qwen3.8-27B",
         "purpose": "Price estimate"

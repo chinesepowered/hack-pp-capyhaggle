@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>End card</title>
+    <link rel="stylesheet" href="card.css" />
+    <style>
+      .wrap {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 50px;
+        padding: 60px 90px;
+      }
+      .scene {
+        border-radius: 36px;
+        overflow: hidden;
+        border: 3px solid var(--ink);
+        box-shadow: 0 16px 0 rgba(42, 31, 23, 0.08);
+      }
+      .scene img {
+        display: block;
+        width: 100%;
+      }
+      h1 {
+        font-size: 104px;
+        line-height: 1;
+      }
+      h1 span {
+        color: var(--spring-deep);
+      }
+      .tagline {
+        margin-top: 22px;
+        font-size: 38px;
+        line-height: 1.2;
+      }
+      .tagline b {
+        color: var(--spring-deep);
+      }
+      .foot {
+        margin-top: 34px;
+        font-size: 21px;
+        color: var(--ink-soft);
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="scene rise" style="animation-delay: 0.1s"><img src="../../public/mascots/nose-bump.svg" alt="" /></div>
+      <div>
+        <h1 class="rise" style="animation-delay: 0.3s">Capy <span>vs</span> Capy</h1>
+        <p class="tagline display rise" style="animation-delay: 0.9s">Two capybaras haggle.<br /><b>PayPal holds the money.</b></p>
+        <p class="foot fade" style="animation-delay: 1.8s">Built for the PayPal AI Hackathon. PayPal sandbox only, no real money.<br />Maya, Theo and their listings are fictional.</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -29,7 +29,8 @@ export const DEMO_ITEMS: DemoItem[] = [
     photos: ["/items/bike-1.jpg", "/items/bike-2.jpg"],
     sellerHint: "Bought new for $190 two summers ago and my kid outgrew it. Fits around age 5 to 7. The training wheels come off.",
     floorCents: 7500,
-    askingCents: 9500,
+    // Chosen with scripts/video/haggle-odds.ts: at this asking price the two agents most often meet at $82.
+    askingCents: 9200,
     extras: [
       { id: "helmet", label: "Kid's helmet" },
       { id: "lock", label: "Cable lock" },

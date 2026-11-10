@@ -152,6 +152,8 @@ async function main() {
   ];
   for (const [value, placeholder] of redact) if (value) text = text.split(value).join(placeholder);
   text = text.replace(/[A-Za-z0-9._-]+@business\.example\.com/g, "sandbox-merchant@example.com");
+  // The app cleans model text at runtime (lib/ai.ts cleanText). Store the fixture already cleaned.
+  text = text.replace(new RegExp(`\\s*[${String.fromCharCode(0x2014)}${String.fromCharCode(0x2015)}]\\s*`, "g"), ", ").replace(new RegExp(String.fromCharCode(0x2013), "g"), "-");
   const out = path.join(process.cwd(), "fixtures", "replay", "kids-bike.json");
   await fs.mkdir(path.dirname(out), { recursive: true });
   await fs.writeFile(out, text + "\n", "utf8");

@@ -1,0 +1,71 @@
+/* Shared styles for the demo video cards. Rendered at 1440x810 CSS px (1920x1080 video). */
+@font-face {
+  font-family: "Fredoka";
+  font-weight: 400 700;
+  src: url("../../public/fonts/Fredoka-latin.woff2") format("woff2");
+}
+:root {
+  --paper: #fbf5ea;
+  --paper-2: #f3e9d7;
+  --paper-3: #e7d8bd;
+  --ink: #2a1f17;
+  --ink-soft: #5c4a3c;
+  --spring: #1f7a78;
+  --spring-deep: #145453;
+  --spring-mist: #e4f4f1;
+  --yuzu: #f2b33d;
+  --pay: #0b4fa8;
+  --pay-soft: #e5eefb;
+  --danger: #a3271f;
+  --danger-soft: #fbe6e3;
+  --money: #0e5a3a;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+html,
+body {
+  width: 1440px;
+  height: 810px;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+h1,
+h2,
+.display {
+  font-family: "Fredoka", ui-rounded, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.rise {
+  opacity: 0;
+  animation: rise 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.15) forwards;
+}
+.fade {
+  opacity: 0;
+  animation: fade 0.7s ease forwards;
+}

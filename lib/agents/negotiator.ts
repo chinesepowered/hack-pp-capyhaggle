@@ -66,8 +66,8 @@ export function systemPrompt(actor: AgentName, deal: Deal, listing: Listing): st
           "- Each counter should close about a third to a half of the gap between your last offer and the seller's offer.",
           "- Back your offers with flaws or estimates that are actually written in the listing.",
           "- Ask for a listed extra when it helps your owner.",
-          "- In rounds 1 to 3, keep haggling: only accept if the seller's offer is within $3 of your own last offer.",
-          "- From round 4 on, accept an offer inside your limit when the gap to your last offer is $4 or less.",
+          "- In rounds 1 to 3, keep haggling: only accept if the seller's offer is within $2 of your own last offer.",
+          "- From round 4 on, accept an offer inside your limit when the gap to your last offer is $2 or less. Otherwise make one more small step up.",
           "- From round 6 on, accept any offer inside your limit rather than risk leaving with nothing.",
           "- If the seller clearly will not come inside your limit by the last round, walk away politely.",
         ]

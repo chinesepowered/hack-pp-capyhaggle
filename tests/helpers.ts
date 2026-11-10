@@ -11,7 +11,7 @@ export const listing: RefereeListing = {
   category: "kids bike",
   description: "A green children's bicycle with red accents. Bought new two summers ago.",
   conditionGrade: "good",
-  askingCents: 9500,
+  askingCents: 9200,
   facts: [
     { id: "f1", kind: "condition", text: "Paint on the frame is bright" },
     { id: "f2", kind: "flaw", text: "Scuffs and paint chips on the red rear fender" },
