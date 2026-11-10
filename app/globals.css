@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/Fredoka-latin.woff2") format("woff2");
+}
+
+@theme {
+  --color-paper: #fbf5ea;
+  --color-paper-2: #f3e9d7;
+  --color-paper-3: #e7d8bd;
+  --color-ink: #2a1f17;
+  --color-ink-soft: #5c4a3c;
+  --color-spring: #1f7a78;
+  --color-spring-deep: #145453;
+  --color-spring-light: #bfe5df;
+  --color-spring-mist: #e4f4f1;
+  --color-yuzu: #f2b33d;
+  --color-yuzu-soft: #fde9bd;
+  --color-barley: #8a5a33;
+  --color-barley-soft: #e3f1ee;
+  --color-biscuit: #c98f55;
+  --color-biscuit-soft: #fdeede;
+  --color-scarf: #c8443a;
+  --color-money: #0e5a3a;
+  --color-money-soft: #e2f3ea;
+  --color-danger: #a3271f;
+  --color-danger-soft: #fbe6e3;
+  --color-warn: #7a4f00;
+  --color-warn-soft: #fff1cc;
+  --color-pay: #0b4fa8;
+  --color-pay-soft: #e5eefb;
+  --font-display: "Fredoka", ui-rounded, "Hiragino Maru Gothic ProN", "Segoe UI", system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.005em;
+}
+
+/* Visible focus for every interactive element (WCAG 2.4.7, 2.4.11). */
+:focus-visible {
+  outline: 3px solid var(--color-pay);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.sr-only-focusable:not(:focus):not(:focus-within) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dot-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.25s ease both;
+}
+
+.typing-dot {
+  animation: dot-bounce 1.2s infinite ease-in-out;
+}
