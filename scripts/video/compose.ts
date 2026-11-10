@@ -22,6 +22,11 @@ const FPS = 30;
 const LEAD = 0.35;
 const TAIL = 0.55;
 const PAPER = "0xfbf5ea";
+/**
+ * Playwright records a page at its CSS size (1440x810 here) in the top left corner of the
+ * 1920x1080 frame and pads the rest. Crop to the page and scale it to fill the frame.
+ */
+const FILL = "crop=1440:810:0:0,scale=1920:1080:flags=lanczos,setsar=1";
 
 interface Marks {
   main: Record<string, number>;
@@ -57,13 +62,14 @@ async function cutPart(marks: Marks, part: Part, out: string): Promise<number> {
   const to = at(marks, part.source, part.to);
   const len = Math.max(0.5, to - from);
   const src = path.join(RAW, `${part.source}.webm`);
-  let vf = `fps=${FPS},scale=1920:1080:flags=lanczos,setsar=1`;
+  let vf = `fps=${FPS},${FILL}`;
   if (part.source === "popup") {
     // PayPal's approval window is smaller than the frame. Crop to it, enlarge it, and set it on paper.
-    const vp = marks.popupViewport ?? { width: 500, height: 646 };
-    const w = Math.min(1920, Math.round((vp.width * 4) / 3 / 2) * 2);
-    const h = Math.min(1080, Math.round((vp.height * 4) / 3 / 2) * 2);
-    vf = `fps=${FPS},crop=${w}:${h}:0:0,scale=-2:960:flags=lanczos,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:color=${PAPER},setsar=1`;
+    // Playwright records the popup at its own CSS size in the top left corner of the frame.
+    const vp = marks.popupViewport ?? { width: 568, height: 750 };
+    const w = Math.min(1920, Math.floor(vp.width / 2) * 2);
+    const h = Math.min(1080, Math.floor(vp.height / 2) * 2);
+    vf = `fps=${FPS},crop=${w}:${h}:0:0,scale=-2:930:flags=lanczos,pad=iw+12:ih+12:6:6:color=0x2a1f17,pad=1920:1080:(ow-iw)/2:(oh-ih)/2-34:color=${PAPER},setsar=1`;
   }
   await ffmpeg(["-ss", from.toFixed(3), "-t", len.toFixed(3), "-i", src, "-an", "-vf", vf, ...ENC, "-crf", "16", out]);
   return duration(out);
@@ -144,7 +150,7 @@ async function composeScene(scene: Scene, marks: Marks): Promise<{ file: string;
   let rawFile: string;
   if (scene.card) {
     rawFile = path.join(dir, "raw.mp4");
-    await ffmpeg(["-ss", "0.25", "-t", String(scene.card.seconds), "-i", path.join(WORK, "cards", `${scene.id}.webm`), "-an", "-vf", `fps=${FPS},scale=1920:1080:flags=lanczos,setsar=1`, ...ENC, "-crf", "16", rawFile]);
+    await ffmpeg(["-ss", "0.25", "-t", String(scene.card.seconds), "-i", path.join(WORK, "cards", `${scene.id}.webm`), "-an", "-vf", `fps=${FPS},${FILL}`, ...ENC, "-crf", "16", rawFile]);
   } else {
     const files: string[] = [];
     let cursor = 0;
@@ -189,7 +195,7 @@ async function composeScene(scene: Scene, marks: Marks): Promise<{ file: string;
   // 3. Audio: the narration, plus any pre-rendered mascot lines near the end of the scene.
   inputs.push("-i", narration);
   const audioLabels: string[] = [];
-  filters.push(`[${index}:a]adelay=${Math.round(LEAD * 1000)}:all=1,aresample=44100[a0]`);
+  filters.push(`[${index}:a]adelay=${Math.round(LEAD * 1000)}:all=1,volume=1.5,aresample=44100[a0]`);
   audioLabels.push("[a0]");
   index++;
   for (const [i, v] of (scene.voices ?? []).entries()) {

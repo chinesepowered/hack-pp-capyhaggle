@@ -78,6 +78,8 @@ export async function verifyWebhookSignature(rawBody: string, h: TransmissionHea
     name: "webhooks.verify",
     method: "POST",
     path: "/v1/notifications/verify-webhook-signature",
+    // A delivery has one transmission id, so a retried verification reuses the same request id.
+    requestId: `cvc-verify-${h.transmissionId}`,
     rawBody: body,
   });
   return res.result.verification_status === "SUCCESS";

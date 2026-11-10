@@ -11,3 +11,39 @@ The demo listing photos in `public/items/` are third-party photographs used unde
 | `public/items/table-1.jpg` | Square teak end table with round legs and a lower shelf, seen from above at an angle on a shop floor | "SOLD: Small teak end table, top" | The Living Room (Flickr user TheLivingRoominKenmore) | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | <https://www.flickr.com/photos/thelivingroominkenmore/4527081675/> | Resized from 2048 x 1536 to 1280 x 960; re-encoded as JPEG (quality 82); metadata removed. Not cropped. |
 | `public/items/table-2.jpg` | The same teak end table seen from the front at floor level, showing the legs and the slatted lower shelf | "SOLD: teak end table" | The Living Room (Flickr user TheLivingRoominKenmore) | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | <https://www.flickr.com/photos/thelivingroominkenmore/4527711000/> | Resized from 2048 x 1536 to 1280 x 960; re-encoded as JPEG (quality 82); metadata removed. Not cropped. |
 | `public/items/stroller-1.jpg` | Front view of a used baby stroller with a navy and white frame and navy striped seat fabric, standing on grass next to a sidewalk | "Peg Perego Stroller" | Daniel X. O'Neil (Flickr user danxoneil) | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | <https://www.flickr.com/photos/juggernautco/207344120/> | Resized from 1944 x 2592 to 960 x 1280; re-encoded as JPEG (quality 82); metadata removed. Not cropped. |
+
+## Mascots and artwork
+
+Barley and Biscuit, the hot spring scene, the nose bump artwork and the app icon are original SVG artwork made for
+this project (`components/mascots/`, `public/mascots/`, `app/icon.svg`). No third-party art was used. The characters
+and the product name are reserved, see `TRADEMARKS.md`.
+
+## Font
+
+| File | Font | Authors | License | Source |
+| --- | --- | --- | --- | --- |
+| `public/fonts/Fredoka-latin.woff2` | Fredoka (variable, Latin subset) | The Fredoka Project Authors | [SIL Open Font License 1.1](https://openfontlicense.org/) | <https://fonts.google.com/specimen/Fredoka> |
+
+## Voices
+
+The video narration and the mascots' voice lines in `public/audio/` were generated with ElevenLabs
+(model `eleven_multilingual_v2`) using its premade voices: Brian (narrator), Callum (Barley) and Jessica (Biscuit).
+The running app plays the pre-rendered files and never calls ElevenLabs. The video has no music.
+
+## Third-party skills in this repository
+
+The files under `.claude/skills/typescript-*` are APIMatic's PayPal Context Plugin skills for TypeScript, from
+<https://github.com/context-plugins/plugin-marketplace> (commit `7cbdf85dc95f09d9ede8c5d349506686684fa0d4`),
+MIT License, Copyright (c) 2026- APIMatic. See `.claude/skills/README.md` for the one change made to them.
+
+## Open-source packages
+
+The app is built on Next.js and React (MIT), Tailwind CSS (MIT), `@paypal/paypal-server-sdk` (MIT),
+`@paypal/agent-toolkit` (ISC), the OpenAI SDK (Apache-2.0), `qrcode` (MIT), `jsqr` (Apache-2.0),
+`@vercel/blob` (Apache-2.0), axios (MIT), Vitest (MIT) and Playwright (Apache-2.0). Each package keeps its own license.
+
+## Names
+
+PayPal is a trademark of PayPal, Inc. This project uses PayPal's sandbox and is not affiliated with or endorsed by
+PayPal. The demo video shows PayPal's own approval window because PayPal is the hackathon's sponsor; no other brand
+appears in it. Maya, Theo and their listings are fictional.

@@ -78,7 +78,8 @@ export const SCENES: Scene[] = [
       "Both tap Accept. Barley calls his one payment tool, and a guard in code only lets the exact agreed amount through. That creates a PayPal order with intent authorize. Maya approves in PayPal's own window, opened by the version six JavaScript SDK, and the money is held, not sent. Biscuit doesn't trust screenshots. She checks the order herself, with PayPal's Agent Toolkit.",
     parts: [
       { source: "main", from: ["accept_start"], to: ["popup_open", 0.6] },
-      { source: "popup", from: ["login_visible", -0.5], to: ["pay_click", 1.4] },
+      // The popup footage starts after the sandbox login, so no account email is shown on screen.
+      { source: "popup", from: ["logged_in", 0.6], to: ["pay_click", 1.4] },
       { source: "main", from: ["held", -0.4], to: ["hold_end"] },
     ],
     captions: [

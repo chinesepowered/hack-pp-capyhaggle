@@ -11,7 +11,7 @@
  */
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import type { Locator, Page } from "playwright";
+import type { Locator } from "playwright";
 import { loadEnv, requireEnv } from "../lib/env";
 
 loadEnv();
@@ -49,8 +49,11 @@ async function main() {
   requireEnv(["PAYPAL_SANDBOX_BUYER_EMAIL", "PAYPAL_SANDBOX_BUYER_PASSWORD", "DEMO_ADMIN_TOKEN"]);
   const { chromium } = await import("playwright");
   const repo = await import("../../lib/repo");
-  await fs.rm(RAW, { recursive: true, force: true });
+  // Remove only earlier footage. The narration audio in demo/raw/narration costs characters to remake.
   await fs.mkdir(RAW, { recursive: true });
+  for (const name of await fs.readdir(RAW)) {
+    if (name.endsWith(".webm") || name === "marks.json" || name === "error.png") await fs.rm(path.join(RAW, name), { force: true });
+  }
 
   // Clean demo state, then take the seeded bike off the shelf: in the video Theo lists it himself.
   const reset = await fetch(`${BASE}/api/admin/reset`, { method: "POST", headers: { "x-admin-token": process.env.DEMO_ADMIN_TOKEN! } });
@@ -70,9 +73,12 @@ async function main() {
   const page = await context.newPage();
   const t0 = Date.now();
   const marks: Record<string, number> = {};
+  const extra: Record<string, unknown> = {};
+  const saveMarks = () => fs.writeFile(path.join(RAW, "marks.json"), JSON.stringify({ main: marks, ...extra, recordedAt: new Date().toISOString() }, null, 2));
   const mark = (name: string) => {
     marks[name] = (Date.now() - t0) / 1000;
     console.log(`  [${marks[name].toFixed(1)}s] ${name}`);
+    void saveMarks();
   };
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message.slice(0, 200)));
@@ -241,6 +247,7 @@ async function main() {
     await waitStatus("held", 120_000);
     mark("held");
     pmarks.end = (Date.now() - p0) / 1000;
+    Object.assign(extra, { popup: pmarks, popupViewport, dealUrl });
     await page.waitForFunction(() => [...document.querySelectorAll("[data-testid=turn-biscuit]")].some((n) => n.textContent?.includes("get_order")), null, { timeout: 60_000 });
     await scrollThreadToEnd();
     mark("verified");
@@ -283,7 +290,8 @@ async function main() {
     await page.getByTestId("start-haggle").click();
     await page.waitForURL(/\/deal\//, { timeout: 30_000 });
     await page.waitForFunction(() => document.querySelectorAll("[data-testid=turn-barley],[data-testid=turn-biscuit]").length >= 2, null, { timeout: 120_000 });
-    await click(page.getByTestId("role-seller"), 900);
+    // The role switch is a visually hidden radio; a person clicks its label.
+    await click(page.locator('label:has([data-testid="role-seller"])'), 900);
     mark("scam_start");
     const jump = page.getByTestId("jump-in");
     await click(jump, 200);
@@ -303,7 +311,7 @@ async function main() {
     await sleep(3800);
     mark("void_end");
 
-    await fs.writeFile(path.join(RAW, "marks.json"), JSON.stringify({ main: marks, popup: pmarks, popupViewport, dealUrl, recordedAt: new Date().toISOString() }, null, 2));
+    await saveMarks();
     const mainVideo = page.video();
     await context.close();
     if (mainVideo) await fs.rename(await mainVideo.path(), path.join(RAW, "main.webm"));
