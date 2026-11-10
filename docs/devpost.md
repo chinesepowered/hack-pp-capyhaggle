@@ -143,10 +143,10 @@ APIMatic PayPal Context Plugin, W&B Inference, OpenAI SDK, Vitest, Playwright, f
 - **APIMatic**: the PayPal Context Plugin (TypeScript skills) guided the integration plan and contract sheet
   (`paypal-plan.md`), and the APIMatic-generated `@paypal/paypal-server-sdk` makes the Orders and Payments calls.
 
-## Links to fill in at submission
+## Links
 
-- Hosted demo URL: (after deploying)
-- Video URL: (after uploading `demo/video.mp4`)
-- Testing instructions: Live mode needs the sandbox buyer login for PayPal's approval window (add the sandbox buyer
-  email and password here). Replay mode needs no login. `POST /api/admin/reset` with the admin token restores the
-  seeded state.
+- Hosted demo: https://hack-pp-capyhaggle.vercel.app
+- Video: https://youtu.be/E1axdRQ-5Zk
+- Repository: https://github.com/chinesepowered/hack-pp-capyhaggle
+- Testing instructions: Live mode needs the sandbox buyer login for PayPal's approval window. It is in the Devpost
+  submission's testing instructions, not in the repository. Replay mode needs no login.

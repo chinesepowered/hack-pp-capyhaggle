@@ -6,7 +6,8 @@ agent negotiate for you, and PayPal holds the buyer's money until the seller sca
 An entry for the PayPal AI Hackathon. PayPal **sandbox only**: no real money moves, and Maya, Theo and their listings
 are fictional.
 
-- Demo video: [`demo/video.mp4`](demo/video.mp4) (2:33), narration in [`demo/narration.txt`](demo/narration.txt)
+- **Live demo:** https://hack-pp-capyhaggle.vercel.app (PayPal sandbox; Replay mode and the two seeded deals need no login)
+- **Demo video:** https://youtu.be/E1axdRQ-5Zk (2:33). The same file is in [`demo/video.mp4`](demo/video.mp4), narration in [`demo/narration.txt`](demo/narration.txt)
 - Devpost text: [`docs/devpost.md`](docs/devpost.md)
 - Build log (surprises and workarounds): [`docs/build-log.md`](docs/build-log.md)
 
@@ -299,8 +300,9 @@ Not done: a formal audit with assistive technology.
   onboarding and identity checks (PayPal's platform products) instead of payouts to an email.
 - **No accounts.** One buyer and one seller persona, switched in the header. The role switch is a demo convenience,
   not access control.
-- **Webhooks and Vercel Blob were not exercised end to end** in the build environment (no public URL, no Blob token).
-  The app does not depend on webhooks. See `docs/needs-user.md`.
+- **Webhooks and Vercel Blob were checked on the hosted demo after deploying.** State lives in a private Blob store,
+  and real PayPal deliveries arrive and pass signature verification. The app still does not depend on webhooks. See
+  [`docs/deploy.md`](docs/deploy.md).
 - **The fact check is a lexicon.** The referee checks claim words and measurements against the listing text. It is
   conservative and can refuse a harmless phrase (the agent then rephrases). Next: claims that cite listing fact ids.
 - **A refund after payout** comes out of the marketplace's balance. A real product would hold the payout for the

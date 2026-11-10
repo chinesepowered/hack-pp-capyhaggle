@@ -40,7 +40,7 @@ session on Tuesday 2026-11-10.
   was not hit against the real sandbox.
 - **Webhooks could not be exercised from the cloud session** (no public URL). The handler verifies the signature
   through `POST /v1/notifications/verify-webhook-signature` with the raw body spliced in byte for byte, is idempotent
-  by event id, and only uses an event as a trigger to re-read PayPal. See `docs/needs-user.md`.
+  by event id, and only uses an event as a trigger to re-read PayPal. See `docs/deploy.md`.
 - **Replay mode and reauthorization.** The recorded authorization is a few days old the moment anyone replays it, so
   the "past the 3 day honor period, reauthorize first" branch would fire against a recording that has no such call.
   Replay skips that branch; Live keeps it.
